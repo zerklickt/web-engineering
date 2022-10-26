@@ -22,14 +22,65 @@
   </header>
 
     <main>
-    <div id="weather-container">
+    <div id="search-container">
         <div id="row-search">
             <input type="text" placeholder="Suche nach Stadt..." name="city-query" id="city-query">
-            <button id="search" name="search">Suchen</button>
+            <button id="search" name="search" onclick="performSearch()">Suchen</button>
         </div>
     </div>
     </main>
 
+    <div id="popup">
+        <div id="weather-container">
+            <div id="popup-header">
+                <span onclick="hidePopup()" class="close-popup">X</span>
+                <h2 id="popup-headline">Wetter in Stuttgart</h2>
+            </div>
+            <div id="popup-current-data">
+                <img id="weather-icon" src="/images/svg/weather_icons/day-sunny.svg" height="120px" width="120px">
+            </div>
+            <h3 style="display: none;">Loading...</h3>
+            <div id="popup-forecasts">
+                <div class="forecast-item">
+                    <span>11:00</span>
+                </div>
+                <div class="forecast-item">
+                    <span>12:00</span>
+                </div>
+                <div class="forecast-item">
+                    <span>13:00</span>
+                </div>
+                <div class="forecast-item">
+
+                </div>
+                <div class="forecast-item">
+
+                </div>
+                <div class="forecast-item">
+
+                </div>
+                <div class="forecast-item">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
+
+    <script>
+        function performSearch(){
+            document.getElementById('popup-headline').innerHTML = "Wetter in " + document.getElementById('city-query').value;
+            showPopup();
+        }
+
+        function showPopup(){
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function hidePopup(){
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
