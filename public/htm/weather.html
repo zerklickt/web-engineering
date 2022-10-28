@@ -33,35 +33,27 @@
     <div id="popup">
         <div id="weather-container">
             <div id="popup-header">
-                <span onclick="hidePopup()" class="close-popup">X</span>
+                <span onclick="closePopup()" class="close-popup">X</span>
                 <h2 id="popup-headline">Wetter in Stuttgart</h2>
             </div>
-            <div id="popup-current-data">
+            <div id="popup-current-data" style="display: none;">
                 <img id="weather-icon" src="/images/svg/weather_icons/day-sunny.svg" height="120px" width="120px">
+                <div style="padding-left: 50px;">
+                    <span id="data-temp">24°C/</span><span id="data-weather">Sonnig</span><br>
+                    <p id="data-minmax-temp"><span class="span-data"><img src="/images/svg/weather_icons/day-sunny.svg" width="15px" height="15px"></span>Min. 22°C / Max. 28°C</p>
+                    <p id="data-downfall"><span class="span-data"><img src="/images/svg/weather_icons/rain-drop.svg" width="15px" height="15px"></span>0%</p>
+                </div>
             </div>
-            <h3 style="display: none;">Loading...</h3>
-            <div id="popup-forecasts">
+            <h3 id="loader">Loading...</h3>
+            <div id="popup-forecasts" style="display: none;">
+                <!--
                 <div class="forecast-item">
                     <span>11:00</span>
+                    <img class="weather-icon-small" src="/images/svg/weather_icons/day-sunny.svg">
+                    <p class="p-forecast"><span class="span-data"><img src="/images/svg/weather_icons/day-sunny.svg" width="15px" height="15px"></span>22°C / 28°C</p>
+                    <p class="p-forecast"><span class="span-data"><img src="/images/svg/weather_icons/rain-drop.svg" width="15px" height="15px"></span>10%</p>
                 </div>
-                <div class="forecast-item">
-                    <span>12:00</span>
-                </div>
-                <div class="forecast-item">
-                    <span>13:00</span>
-                </div>
-                <div class="forecast-item">
-
-                </div>
-                <div class="forecast-item">
-
-                </div>
-                <div class="forecast-item">
-
-                </div>
-                <div class="forecast-item">
-
-                </div>
+                -->
             </div>
         </div>
     </div>
@@ -70,16 +62,160 @@
 
     <script>
         function performSearch(){
-            document.getElementById('popup-headline').innerHTML = "Wetter in " + document.getElementById('city-query').value;
+            var city_name = document.getElementById('city-query').value;
+            document.getElementById('popup-headline').innerHTML = "Wetter in " + city_name;
             showPopup();
+            fetchData(encodeURIComponent(city_name));
         }
 
         function showPopup(){
             document.getElementById('popup').style.display = 'flex';
         }
 
-        function hidePopup(){
+        function closePopup(){
             document.getElementById('popup').style.display = 'none';
+            document.getElementById('loader').style.display = 'inline-block';
+            document.getElementById('popup-current-data').style.display = 'none';
+            document.getElementById('popup-forecasts').style.display = 'none';
+            document.getElementById('loader').innerHTML = "Loading...";
+        }
+
+        async function fetchData(city){
+            let query_coords = await performHTTPRequest("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=2f5468c2cd88a4cfe1b69720aa6ce5df");
+            if(!checkResponse(query_coords))
+                return;
+            let json_coords_obj = JSON.parse(query_coords);
+            let lat = json_coords_obj[0].lat;
+            let lon = json_coords_obj[0].lon;
+            let weather_result = await performHTTPRequest("https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df");
+            if(!checkResponse(weather_result))
+                return;
+            //window.debug_urlCurrent = "https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df";
+            await displayCurrentWeather(weather_result);
+
+            let forecast_result = await performHTTPRequest("https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df");
+            if(!checkResponse(forecast_result))
+                return;
+            //window.debug_urlForecast = "https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df";
+            await displayForecast(forecast_result);
+            finalizeLoading();
+        }
+
+        async function checkResponse(raw_text){
+            try {
+                let json_obj = JSON.parse(raw_text);
+                if(json_obj.cod != 200){
+                    if(json_obj[0] != null)
+                        return true;
+                    document.getElementById('loader').innerHTML = "Verbindung fehlgeschlagen!";
+                    return false;
+                }
+                return true;
+            } catch(e){
+                document.getElementById('loader').innerHTML = "Verbindung fehlgeschlagen!";
+                return false;
+            }
+            
+        }
+
+        // updates UI from loading screen to display data
+        async function finalizeLoading(){
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('popup-current-data').style.display = 'grid';
+            document.getElementById('popup-forecasts').style.display = 'flex';
+        }
+
+        // loads current weather into top section of popup
+        async function displayCurrentWeather(raw_text){
+            window.debug_queryCurrent = raw_text;
+            let json_obj = JSON.parse(raw_text);
+            document.getElementById('data-temp').innerHTML = Math.round(json_obj.main.temp) + "°C/";
+            document.getElementById('data-weather').innerHTML = json_obj.weather[0].description;
+            document.getElementById('data-minmax-temp').innerHTML = '<span class="span-data"><img src="/images/svg/weather_icons/day-sunny.svg" width="15px" height="15px"></span>Min. ' + Math.round(json_obj.main.temp_min) + '°C / Max. ' + Math.round(json_obj.main.temp_max)  + '°C';
+            document.getElementById('data-downfall').innerHTML = '<span class="span-data"><img src="/images/svg/weather_icons/rain-drop.svg" width="15px" height="15px"></span>' + Math.round(json_obj.main.temp_min) + '%';
+            document.getElementById('weather-icon').src = findIconURL(json_obj.weather[0].id);
+
+            //Set dark sytle based on the time in the place the user searched for
+            let time = new Date();
+            time.setTime((json_obj.dt + json_obj.timezone - time.getTimezoneOffset()*60) * 1000);
+            window.debug_time = time;
+            if(time.getHours() > 20 || time.getHours() < 6){
+                document.getElementById('weather-container').style.backgroundImage = 'linear-gradient(110deg, #2f3942, #0f1315)';
+            }
+        }
+
+        // loads five day forecast in lower section of popup
+        // weather data being displayed is between 11 am and 1 pm
+        async function displayForecast(raw_text){
+            window.debug_queryForecast = raw_text;
+            let json_obj = JSON.parse(raw_text);
+            for(var i = 0; i < json_obj.list.length; i++){
+                let time = new Date();
+                time.setTime(json_obj.list[i].dt * 1000);
+                if(!(time.getHours() >= 11 && time.getHours() <= 13))
+                    continue;
+
+                let t = document.createElement('div');
+                t.classList.add('forecast-item');
+                
+                let span = document.createElement('span');
+                span.innerHTML = time.toLocaleDateString('de-DE', { month: 'numeric', day: 'numeric' });
+                t.appendChild(span);
+
+                let img = document.createElement('img');
+                img.classList.add('weather-icon-small');
+                img.src = findIconURL(json_obj.list[i].weather[0].id);
+                t.appendChild(img);
+
+                let temp = document.createElement('p');
+                temp.classList.add('p-forecast');
+                let span_temp = document.createElement('span');
+                span_temp.classList.add('span-data');
+                span_temp.innerHTML = '<img src="/images/svg/weather_icons/day-sunny.svg" width="15px" height="15px">';
+                temp.appendChild(span_temp);
+                temp.innerHTML += Math.round(json_obj.list[i].main.temp_min) + "°C / " + Math.round(json_obj.list[i].main.temp_max) + "°C";
+                t.appendChild(temp);
+
+                let pop = document.createElement('p');
+                pop.classList.add('p-forecast');
+                let span_pop = document.createElement('span');
+                span_pop.classList.add('span-data');
+                span_pop.innerHTML = '<img src="/images/svg/weather_icons/rain-drop.svg" width="15px" height="15px">';
+                pop.appendChild(span_pop);
+                pop.innerHTML += Math.round(json_obj.list[i].pop * 100) + "%";
+                t.appendChild(pop);
+
+                document.getElementById('popup-forecasts').appendChild(t);
+            }
+        }
+
+        function findIconURL(code){
+            let path = "/images/svg/weather_icons/";
+            // Switch case from stackoverflow.com
+            switch(true){
+                case (code >= 200 && code <= 232):
+                    return path + "day-cloud-lightning.svg";
+                case (code >= 500 && code <= 531):
+                    return path + "day-cloud-rain.svg";
+                case (code >= 600 && code <= 622):
+                    return path + "day-cloud-snow.svg";
+                case (code >= 801 && code <= 804):
+                    return path + "cloudy.svg";
+                case (code = 800):
+                    return path + "day-sunny.svg";
+                default:
+                    return path + "day-sunny.svg";
+            }
+        }
+
+        async function performHTTPRequest(url){
+            let response = await fetch(url);
+            if(response.status != 200) {
+                throw new Error("Server Error");
+            }
+            let plain_text = await response.text();
+
+            return plain_text;
         }
     </script>
 </body>
