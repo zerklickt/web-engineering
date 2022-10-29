@@ -19,7 +19,9 @@
             var cWidth = 0, cHeight = 0;
             var prevX = 0, prevY = 0;
             var currX = 0, currY = 0;
-            var flag = false, dot_flag = false; 
+            var flag = false, dot_flag = false;
+            
+            var canDownload = false;
 
             window.onload = function(){
                 canvas = document.getElementById('sign-field');
@@ -54,10 +56,12 @@
                     processTouch('move', e);
                 }, false);
 
+                /*
                 context.moveTo(50, 220);
                 context.lineTo(800, 220);
                 context.strokeStyle = "black";
                 context.stroke();
+                */
             }
 
             function process(action, e){
@@ -136,10 +140,13 @@
 
             function resetCanvas() {
                 context.clearRect(0, 0, 850, 350);
+                canDownload = false;
+                /*
                 context.moveTo(50, 220);
                 context.lineTo(800, 220);
                 context.strokeStyle = "black";
                 context.stroke();
+                */
             }
 
             function showPopup(){
@@ -148,6 +155,39 @@
 
             function closePopup(){
                 document.getElementById('popup').style.display = 'none';
+            }
+            
+            function displayImg(){
+                var dataURL = canvas.toDataURL("image/png");
+                document.getElementById('img-out').setAttribute("src", dataURL);
+                document.getElementById('img-out').style.display = 'block';
+                canDownload = true;
+            }
+
+            function exportImg(){
+                //code from stackoverflow.com  (question #11112321)
+                if(!canDownload){
+                    alert("Es wurde keine Unterschrift erstellt!");
+                    return;
+                }
+                let downloadLink = document.createElement('a');
+                downloadLink.setAttribute('download', 'signature.png');
+                canvas.toBlob(function(blob) {
+                    let url = URL.createObjectURL(blob);
+                    downloadLink.setAttribute('href', url);
+                    downloadLink.click();
+                });
+            }
+
+            function viewInBrowser(){
+                if(!canDownload){
+                    alert("Es wurde keine Unterschrift erstellt!");
+                    return;
+                }
+                var dataURL = canvas.toDataURL("image/png");
+                var newTab = window.open('about:blank','image from canvas');
+                newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
+                window.open(canvas.toDataURL('image/png'));
             }
         </script>
 
@@ -164,16 +204,20 @@
         </header>
 
         <main>
-            <button onclick="showPopup()">Popup &ouml;ffnen</button>
+            <h2>Unterschreiben</h2>
+            <button onclick="showPopup()" id="show-popup" class="main-btn">Signaturfeld &ouml;ffnen</button>
+            <img id="img-out" style="width: 100%; height: auto; display: none;">
+            <button id="download-img" class="btn-confirm main-btn" onclick="exportImg()">Herunterladen</button>
+            <button class="btn-confirm main-btn" onclick="viewInBrowser()">Im Browser anzeigen</button>
         </main>
 
         <div id="popup">
             <div id="sign-container">
                 <span onclick="closePopup()" class="close-popup">X</span>
                 <div id="toolbar">
-                    <button class="tool btn-cancel">Abbrechen</button>
-                    <button class="tool" onclick="resetCanvas()">Zur&uuml;cksetzen</button>
-                    <button class="tool btn-confirm">Speichern</button>
+                    <button class="tool btn-cancel" onclick="closePopup()">Abbrechen</button>
+                    <button class="tool btn-reset" onclick="resetCanvas()">Zur&uuml;cksetzen</button>
+                    <button class="tool btn-confirm" onclick="displayImg()">Speichern</button>
                 </div>
                 <canvas id="sign-field"></canvas>
             </div>
