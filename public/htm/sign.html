@@ -4,11 +4,153 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DHBW - Wetter abfragen</title>
+        <link rel="stylesheet" href="/stylesheets/rwd.css">
+        <link rel="stylesheet" href="/stylesheets/functional/popup.css">
         <link rel="stylesheet" href="/stylesheets/style.css">
         <link rel="stylesheet" href="/stylesheets/custom/sign.css">
-        <link rel="stylesheet" href="/stylesheets/rwd.css">
     </head>
     <body>
+        <script>
+
+            //code fragments from stackoverflow.com (altered)
+            var canvas;
+            var context;
+            var isInBounds = false;
+            var cWidth = 0, cHeight = 0;
+            var prevX = 0, prevY = 0;
+            var currX = 0, currY = 0;
+            var flag = false, dot_flag = false; 
+
+            window.onload = function(){
+                canvas = document.getElementById('sign-field');
+                context = canvas.getContext('2d');
+                context.canvas.width = 850;
+                context.canvas.height = 350;
+
+                cHeight = canvas.getBoundingClientRect().bottom - canvas.getBoundingClientRect().top;
+                cWidth = canvas.getBoundingClientRect().right - canvas.getBoundingClientRect().left;
+                console.log(cWidth + " " + cHeight);
+
+                canvas.addEventListener("mousemove", function (e) {
+                    process('move', e)
+                }, false);
+                canvas.addEventListener("mousedown", function (e) {
+                    process('down', e)
+                }, false);
+                canvas.addEventListener("mouseup", function (e) {
+                    process('up', e)
+                }, false);
+                canvas.addEventListener("mouseout", function (e) {
+                    process('out', e)
+                }, false);
+
+                canvas.addEventListener("touchstart", function(e){
+                    processTouch('down', e);
+                }, false);
+                canvas.addEventListener("touchend", function(e){
+                    processTouch('up', e);
+                }, false);
+                canvas.addEventListener("touchmove", function(e){
+                    processTouch('move', e);
+                }, false);
+
+                context.moveTo(50, 220);
+                context.lineTo(800, 220);
+                context.strokeStyle = "black";
+                context.stroke();
+            }
+
+            function process(action, e){
+                if (action == 'down') {
+                    prevX = currX;
+                    prevY = currY;
+                    currX = e.offsetX ;//- canvas.getBoundingClientRect().left;
+                    currY = e.offsetY ;//- canvas.getBoundingClientRect().top;
+            
+                    flag = true;
+                    dot_flag = true;
+                    if (dot_flag) {
+                        context.beginPath();
+                        context.fillStyle = "black";
+                        context.fillRect(currX, currY, 2, 2);
+                        context.closePath();
+                        dot_flag = false;
+                    }
+                }
+                if (action == 'up' || action == "out") {
+                    flag = false;
+                }
+                if (action == 'move') {
+                    if (flag) {
+                        prevX = currX;
+                        prevY = currY;
+                        currX = e.clientX - canvas.getBoundingClientRect().left;
+                        currY = e.clientY - canvas.getBoundingClientRect().top;
+                        console.log(currX + " | " + currY);
+                        draw();
+                    }
+                }
+            }
+
+            function processTouch(action, e){
+                if (action == 'down') {
+                    prevX = currX;
+                    prevY = currY;
+                    currX = e.offsetX ;//- canvas.getBoundingClientRect().left;
+                    currY = e.offsetY ;//- canvas.getBoundingClientRect().top;
+            
+                    flag = true;
+                    dot_flag = true;
+                    if (dot_flag) {
+                        context.beginPath();
+                        context.fillStyle = "black";
+                        context.fillRect(currX, currY, 2, 2);
+                        context.closePath();
+                        dot_flag = false;
+                    }
+                }
+                if (action == 'up' || action == "out") {
+                    flag = false;
+                }
+                if (action == 'move') {
+                    if (flag) {
+                        prevX = currX;
+                        prevY = currY;
+                        currX = e.touches['0'].clientX - canvas.getBoundingClientRect().left;
+                        currY = e.touches['0'].clientY - canvas.getBoundingClientRect().top;
+                        console.log(currX + " | " + currY);
+                        draw();
+                    }
+                }
+            }
+
+            function draw() {
+                context.beginPath();
+                context.moveTo(prevX, prevY);
+                context.lineTo(currX, currY);
+                context.strokeStyle = "black";
+                context.lineWidth = 2;
+                context.stroke();
+                context.closePath();
+            }
+
+            function resetCanvas() {
+                context.clearRect(0, 0, 850, 350);
+                context.moveTo(50, 220);
+                context.lineTo(800, 220);
+                context.strokeStyle = "black";
+                context.stroke();
+            }
+
+            function showPopup(){
+                document.getElementById('popup').style.display = 'flex';
+            }
+
+            function closePopup(){
+                document.getElementById('popup').style.display = 'none';
+            }
+        </script>
+
         <header>
         <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
         <h3>DHBW Stuttgart - Wetter</h3>
@@ -22,9 +164,20 @@
         </header>
 
         <main>
-            <button onclick="">Popup &ouml;ffnen</button>
-            <div id="popup"></div>
+            <button onclick="showPopup()">Popup &ouml;ffnen</button>
         </main>
+
+        <div id="popup">
+            <div id="sign-container">
+                <span onclick="closePopup()" class="close-popup">X</span>
+                <div id="toolbar">
+                    <button class="tool btn-cancel">Abbrechen</button>
+                    <button class="tool" onclick="resetCanvas()">Zur&uuml;cksetzen</button>
+                    <button class="tool btn-confirm">Speichern</button>
+                </div>
+                <canvas id="sign-field"></canvas>
+            </div>
+        </div>
 
         <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
     </body>
