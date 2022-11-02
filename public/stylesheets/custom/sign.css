@@ -53,6 +53,10 @@ h2 {
     margin-top: 5px;
 }
 
+#img-out {
+    filter: invert();
+}
+
 .main-btn:hover {
     cursor: pointer;
 }

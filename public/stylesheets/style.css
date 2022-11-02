@@ -1,11 +1,13 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: all 500ms ease;
+    color: white;
 }
 
 body {
     overflow: auto;
     margin: 0;
+    background-color: #151515;
 }
 
 body > p {
@@ -13,7 +15,7 @@ body > p {
 }
 
 header {
-    background-color: white;
+    background-color: #222222;
     overflow: hidden;
     position: sticky;
     left: 0;
@@ -24,7 +26,7 @@ header {
 }
 
 header img {
-    background-color: white;
+    filter: contrast(0.0) brightness(200%);
     overflow: visible;
     padding: 10px;
     margin-left: 10px;
@@ -44,7 +46,7 @@ header h3 {
     display: inline;
     float: right;
     font-size: 18pt;
-    color: red;
+    color: white;
     margin-bottom: 0;
     margin-right: 20px;
 }
@@ -106,6 +108,10 @@ footer {
 footer p {
     text-align: center;
     color: white;
+}
+
+button, input {
+    color: black;
 }
 
 .ad-bar {
@@ -176,7 +182,8 @@ footer p {
 
 .link-sel {
     display: inline-block;
-    background-color: white;
+    background-color: #3f3f3f;
+    
     padding: 15px;
     text-align: center;
     flex: 1;
@@ -193,5 +200,4 @@ footer p {
 .link-sel > a {
     text-decoration: none;
     font-weight: bolder;
-    color: red;
 }
