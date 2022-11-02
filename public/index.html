@@ -1,14 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="de-DE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DHBW - Startseite</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/custom/index.css">
+  <link rel="stylesheet" href="/stylesheets/functional/popup.css">
+  <link rel="stylesheet" href="/stylesheets/rwd.css">
+</head>
 <body>
-  <div style="position:relative;width:100%;height:"
-<h1>Congratulation</h1>
-<p>When you see this, either your Node.JS is doing some work or the Apache Server found this HTML</p>
-<div style="box-sizing: border-box;width:100%;height:250px; padding:0.5em; background-color: rgba(0,0,0,0.7);
-            border: 2px solid white; box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.8);
-            -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; border-radius:5px;
-            color: white;overflow: auto;position:relative">
-<p style="position:relative;top:30%">OK, OK aber für eine vernünftigen Homepage fehlt noch Einiges oder ?</p>
-</div>
+  <header>
+    <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
+    <h3>DHBW Stuttgart - Wetter</h3>
+    <nav class="desktop-nav">
+      <ul style="position: relative;">
+        <li class="link-sel"><a href="#">Startseite</a></li>
+        <li><a href="/htm/weather.html">Wetter</a></li>
+        <li><a href="/htm/sign.html">Unterschreiben</a></li>
+        <li><a href="/htm/spotify.html">Spotify</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <main>
+      <section>
+        <h4>Willkommen!</h4>
+        <p style="text-align: center;">
+          Hallo und herzlich willkommen zu meinem Abschlussprojekt im Kurs Web-Engineering!
+        </p>
+        <p style="text-align: center;">
+          Dies ist die Startseite f&uuml;r alle Teilprojekte, die ich erstellt habe. Ich wünsche viel Spaß beim Erkunden!
+        </p>
+      </section>
+
+      <section>
+        <h4>Allgemeine Informationen</h4>
+        <div id="information-container">
+          <article class="article-info">
+            <h5>Code</h5>
+            <p>
+              Sämtlicher HTML-, CSS- und JavaScript-Code, sowie Designs wurden von mir selbst entworfen, mit Ausnahme von manchen, speziellen Fragmenten, die ich mit einem Kommentar zu der Herkunft gekennzeichnet habe.
+            </p>
+          </article>
+          <article class="article-info">
+            <h5>Verwendete Dienste</h5>
+            <p>
+              Für das Teilprojekt Wetter wurde die OpenWeatherMap-API verwendet.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h4>Projekte</h4>
+        <div id="projects-container">
+          <div class="project-card" style="background-image: url('/images/clouds.jpg');">
+            <a href="/htm/weather.html">Wetter</a>
+          </div>
+          <div class="project-card" style="background-image: url('/images/sign.jpg');">
+            <a href="/htm/sign.html">Unterschreiben</a>
+          </div>
+          <div class="project-card" style="background-image: url('/images/svg/spotify.png');">
+            <a href="/htm/spotify.html">Spotify</a>
+          </div>
+          <div class="project-card" style="background-image: url('/images/code.jpg');">
+            <a href="/htm/weather.html">jQuery</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
 </body>
 </html>

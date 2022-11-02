@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DHBW - Spotify Podcasts</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/custom/spotify.css">
+  <link rel="stylesheet" href="/stylesheets/functional/popup.css">
+  <link rel="stylesheet" href="/stylesheets/rwd.css">
+</head>
+<body>
+    <header>
+        <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
+        <h3>DHBW Stuttgart - Spotify Podcasts</h3>
+        <nav class="desktop-nav">
+            <ul style="position: relative;">
+            <li><a href="weather.html">Wetter</a></li>
+            <li><a href="sign.html">Unterschreiben</a></li>
+            <li class="link-sel"><a href="spotify.html">Spotify</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <button onclick="performPost()"></button>
+    </main>
+
+    <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
+
+    <script src="/js/spotify-web-api.js">
+        var s;
+        var spotifyApi;
+
+        var client_id = "";
+        var client_secret = "";
+
+        window.onload = function (){
+            s = new Spotify();
+            spotifyApi = new SpotifyWebApi();
+            spotifyApi.setAccessToken('AQDKAX_1ezGQtbzw7PJW4XUX0NWW9pqN6-EWvXaJjlx5c_CfXysY51RaDWskg6sctjCQmfrwlLh5x-BKvcs7bLZ5vW_rkcBc-Fu7-1LbEGGkSzYl0sBBuce6To410XdWdXOz-_3W4Dce5iTmNnNIjij0U7dMRmbgUnfBaObWZYY8T2pJhKr6NqeN9pSkcJ3Mk0YRr8bHFJF9RSQ48l9B_vIFSitmsCww4cXo3bMLjojdSHo7ivOSJGEzGb5-QDgLBk7ur379');
+
+            spotifyApi.setPromiseImplementation(Q);
+            spotifyApi.getFollowedArtists().then(
+                function (data) {
+                console.log('Followed Artists', data);
+                },
+                function (err) {
+                console.error(err);
+                }
+            );
+        }
+    </script>
+    <script src="/js/Spotify-Impl.js"></script>
+    <script src="app-browser.js">
+    </script>
+    <script>
+        
+        function performPost(){
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            fd.append("code", 'AQDKAX_1ezGQtbzw7PJW4XUX0NWW9pqN6-EWvXaJjlx5c_CfXysY51RaDWskg6sctjCQmfrwlLh5x-BKvcs7bLZ5vW_rkcBc-Fu7-1LbEGGkSzYl0sBBuce6To410XdWdXOz-_3W4Dce5iTmNnNIjij0U7dMRmbgUnfBaObWZYY8T2pJhKr6NqeN9pSkcJ3Mk0YRr8bHFJF9RSQ48l9B_vIFSitmsCww4cXo3bMLjojdSHo7ivOSJGEzGb5-QDgLBk7ur379');
+            fd.append("grant_type", "authorization_code");
+            fd.append("redirect_uri", "https://localhost:6001/htm/spotify.html");
+            xhr.open("POST", "https://accounts.spotify.com/api/token", true);
+            xhr.setRequestHeader('Authorization', 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')));
+            XHR.addEventListener('load', (event) => {
+                alert('Yeah! Data sent and response loaded!');
+                console.log(xhr.response);
+            });
+            xhr.send(fd);
+        }
+    </script>
+</body>
+</html>

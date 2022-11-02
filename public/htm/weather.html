@@ -17,7 +17,7 @@
       <ul style="position: relative;">
         <li class="link-sel"><a href="weather.html">Wetter</a></li>
         <li><a href="sign.html">Unterschreiben</a></li>
-        <li><a href="#Maschinenbau">Maschinenbau</a></li>
+        <li><a href="spotify.html">Spotify</a></li>
       </ul>
     </nav>
   </header>
@@ -65,6 +65,7 @@
         function performSearch(){
             var city_name = document.getElementById('city-query').value;
             document.getElementById('popup-headline').innerHTML = "Wetter in " + city_name;
+            document.getElementById('popup-forecasts').innerHTML = "";
             showPopup();
             fetchData(encodeURIComponent(city_name));
         }
@@ -145,6 +146,7 @@
                 document.getElementById('weather-icon').src = findIconURL(json_obj.weather[0].id, false);
             } else {
                 document.getElementById('weather-icon').src = findIconURL(json_obj.weather[0].id, true);
+                document.getElementById('weather-container').style.backgroundImage = 'linear-gradient(110deg, #cde7fd, #0289ff)';
             }
 
             
