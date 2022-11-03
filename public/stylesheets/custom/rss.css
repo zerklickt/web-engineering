@@ -1,0 +1,98 @@
+#feed-container {
+    width: 90%;
+    height: 90%;
+    overflow-y: scroll;
+    background-color: #333333;
+    border-radius: 10px;
+}
+
+#feed-header {
+    position: relative;
+    padding: 20px;
+}
+
+#feed-header h3 {
+    font-size: 28pt;
+}
+
+#feed-body {
+    padding: 20px;
+}
+
+.feed-entry {
+    margin-top: 20px;
+    padding: 18px;
+    background-color: #222222;
+}
+
+h6 {
+    font-size: 16pt;
+    margin: 18px 0px;
+}
+
+section {
+    width: 100%;
+    padding: 70px;
+    padding-top: 30px;
+    border-radius: 5px;
+    background-color: #232323;
+    color: white;
+    margin: 25px 0;
+}
+
+h4 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 38pt;
+}
+
+section > p{
+    font-size: 16pt;
+}
+
+#projects-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+.project-card {
+    height: 100px;
+    flex: 0 0 220px;
+    background-color: #555555;
+    position: relative;
+    height: 220px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.project-card:hover{
+    cursor: pointer;
+}
+
+#information-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.article-info {
+    background-color: #333333;
+    padding: 25px;
+    border-radius: 8px;
+    flex: 0 1 460px;
+}
+
+h5 {
+    text-align: center;
+    font-size: 20pt;
+    margin: 20px 0;
+}

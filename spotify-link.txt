@@ -1,0 +1,1 @@
+accounts.spotify.com/de/authorize?client_id=dc088cac1af64d06b27bc21b5322626b&redirect_uri=http://localhost:6001/htm/spotify.html&scope=user-library-read%20playlist-read-private%20user-follow-read&response_type=code

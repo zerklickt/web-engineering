@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DHBW - RSS-Feeds</title>
+        <link rel="stylesheet" href="/stylesheets/rwd.css">
+        <link rel="stylesheet" href="/stylesheets/functional/popup.css">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/custom/rss.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+        <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
+        <h3>DHBW Stuttgart - RSS-Feeds</h3>
+        <nav class="desktop-nav">
+            <ul style="position: relative;">
+                <li><a href="../">Startseite</a></li>
+                <li><a href="weather.html">Wetter</a></li>
+                <li><a href="sign.html">Unterschreiben</a></li>
+                <li class="link-sel"><a href="#">RSS-Feeds</a></li>
+            </ul>
+        </nav>
+        </header>
+
+        <main>
+            <section>
+                <h4>RSS-Feeds</h4>
+                <div id="projects-container">
+                  <div class="project-card" style="background-image: url('/images/tagesschau.png');" onclick="showFeed('https://www.tagesschau.de/xml/rss2/')"></div>
+                  <div class="project-card" style="background-image: url('/images/heise.png');" onclick="showFeed('https://www.heise.de/rss/heise.rdf')"></div>
+                  <div class="project-card" style="background-image: url('/images/boerse_FRA.png'); background-color: white;" onclick="showFeed('https://api.boerse-frankfurt.de/v1/feeds/news.rss')"></div>
+                </div>
+            </section>
+        </main>
+
+        <div id="popup">
+            <div id="feed-container">
+                <div id="feed-header">
+                    <span onclick="closePopup()" class="close-popup" style="color: white;">X</span>
+                    <h3 id="feed-name">Tagesschau</h3>
+                    <p id="feed-description">Description</p>
+                </div>
+                <div id="feed-body">
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showFeed(url){
+                document.getElementById("popup").style.display = 'flex';
+                document.querySelector("body").style.overflow = 'hidden';
+                
+                //parser from stackoverflow.com (question #10943544, altered and expanded)
+                $.get(url, function (data) {
+                    window.debugData = data;
+                    $('#feed-name').html(
+                        $(data).children("rss").children("channel").children("title").text()
+                        );
+                    $('#feed-description').html(
+                        $(data).children("rss").children("channel").children("description").text()
+                        );
+                    $(data).find("item").each(function () {
+                        var el = $(this);
+
+                        let div = document.createElement('div');
+                        div.classList.add('feed-entry');
+
+                        let headline = document.createElement('h6');
+                        headline.innerHTML = el.find("title").text();
+                        div.appendChild(headline);
+
+                        let description = document.createElement('p');
+                        description.innerHTML = el.find("description").text();
+                        div.appendChild(description);
+
+                        let link = document.createElement('a');
+                        link.setAttribute('href', el.find("link").text());
+                        link.setAttribute('target', '_blank');
+                        link.innerHTML = "weiterlesen...";
+                        div.appendChild(link);
+
+                        document.getElementById('feed-body').appendChild(div);
+                    });
+                });
+            }
+
+            function closePopup(){
+                $('#popup').css("display", "none");
+            }
+        </script>
+
+        <style></style>
+        <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
+    </body>
+</html>
