@@ -93,22 +93,24 @@
         }
 
         async function fetchData(city){
-            let query_coords = await performHTTPRequest("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=2f5468c2cd88a4cfe1b69720aa6ce5df");
+            // retrieve coordinates of city in order to perform data requests
+            let query_coords = await performHTTPRequest("http://localhost:6001/api-proxy/?http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather");
             if(!checkResponse(query_coords))
                 return;
             let json_coords_obj = JSON.parse(query_coords);
             let lat = json_coords_obj[0].lat;
             let lon = json_coords_obj[0].lon;
-            let weather_result = await performHTTPRequest("https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df");
+
+            // query current weather
+            let weather_result = await performHTTPRequest("http://localhost:6001/api-proxy/?https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&service=weather&lat=" + lat + "&lon=" + lon);
             if(!checkResponse(weather_result))
                 return;
-            //window.debug_urlCurrent = "https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df";
             await displayCurrentWeather(weather_result);
-
-            let forecast_result = await performHTTPRequest("https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df");
+            
+            // query forecast for next five days
+            let forecast_result = await performHTTPRequest("http://localhost:6001/api-proxy/?https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&service=weather&lat=" + lat + "&lon=" + lon);
             if(!checkResponse(forecast_result))
                 return;
-            //window.debug_urlForecast = "https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&lat=" + lat + "&lon=" + lon + "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df";
             await displayForecast(forecast_result);
             finalizeLoading();
         }

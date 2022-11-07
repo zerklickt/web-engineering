@@ -101,17 +101,69 @@ app.get('/home', function(req, res){
 // The incoming request will transfered using the fetch package
 //------------------------------------------------------------------------------
 app.all('/proxy', function(req, res){
+  var decompose = req.originalUrl.split("?");
+  var fullurl = decompose[1] + "?" + decompose[2];
+  console.log("Proxy Server reached", fullurl);
+  fullurl = fullurl.replace("url=","");
+  fetch(fullurl, {
+      method: req.method,
+      headers: { 'Content-Type': 'application/json' },
+  })
+  .then(checkStatus)  // do some basic status checking first.. throw an exception in case of trouble
+  .then((response) => response.json())
+  .then((json) => {res.send({error: null, status: json.status, response: json});
+          })
+  .catch((err) => {
+    res.send({error: err, status: err, response: ""});
+  });
+// do some basic exception handling (as desribed in the package but could be more in reality)
+function checkStatus(response) {
+      if (response.ok) { // res.status >= 200 && res.status < 300
+          return response;
+      } else {
+          throw {message : response.statusText};
+      }
+  }
+});
+//------------------------------------------------------------------------------
+// localhost:6001/api-proxy?url_to_be_proxied
+// The incoming request will transfered using the fetch package
+// This proxy is intented to be used for applying credentials (such as api keys) to external API requests
+//------------------------------------------------------------------------------
+app.all('/api-proxy', function(req, res){
     var decompose = req.originalUrl.split("?");
     var fullurl = decompose[1] + "?" + decompose[2];
     console.log("Proxy Server reached", fullurl);
     fullurl = fullurl.replace("url=","");
+    //******* */
+    //altered Code
+    var params = decompose[2].split("&");
+    for(const param of params){
+      //check if service parameter is specified
+      if(param.split("=")[0] === "service"){
+        const serviceName = param.split("=")[1];
+
+        // Depending on the service that was intented to be queried, the corresponding API credentials from .env are applied
+        switch(true){
+          case (serviceName === "weather"):
+            fullurl += "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df";
+            console.log("└ Service: Weather");
+            break;
+          // apply more cases when dealing with more services
+          default:
+              break;
+        }
+        break;
+      }
+    }
+
     fetch(fullurl, {
         method: req.method,
         headers: { 'Content-Type': 'application/json' },
     })
     .then(checkStatus)  // do some basic status checking first.. throw an exception in case of trouble
     .then((response) => response.json())
-    .then((json) => {res.send({error: null, status: json.status, response: json});
+    .then((json) => {res.send(json);
             })
     .catch((err) => {
       res.send({error: err, status: err, response: ""});
