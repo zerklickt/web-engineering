@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
 // -----------------------------------------------------------------------------
 var server = app.listen(6001, function() {
   console.log('***********************************');
-  console.log('listening:', 6001);
+  console.log('Started server on port:', 6001);
   console.log('***********************************');
 });
 // -----------------------------------------------------------------------------
@@ -86,7 +86,7 @@ app.get('/redirect', function(req, res){
 //  we show the map.htm which is the Google Map at the local Stuttgart
 // -----------------------------------------------------------------------------
 app.get('/home', function(req, res){
-  var docname = "/htm/map.htm";
+  var docname = "index.html";
   var options = {root: __dirname + '/public/'}
   res.sendFile(docname, options, function (err) { // send this file
    if (err) {
@@ -125,30 +125,3 @@ function checkStatus(response) {
         }
     }
 });
-// -----------------------------------------------------------------------------
-//  Chat Management using Cloudant as DB in the Cloud
-// -----------------------------------------------------------------------------
-app.all('/chat', function (req,res) {
-  console.log(req.body.cmd);
-  if (req.body.Group == undefined || req.body.Group == "") {req.body.Group = "GlobalChat"}
-    fetch("https://juergenschneider.eu-gb.mybluemix.net/chat", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body:JSON.stringify(req.body)
-    })
-    .then(checkStatus)  // do some basic status checking first.. throw an exception in case of trouble
-    .then((response) => response.json())
-    .then((json) => {res.send(json);
-            })
-    .catch((err) => {
-      res.send({Status:"NOK", Data:err.message});
-    });
-// do some basic exception handling (as desribed in the package but could be more in reality)
- function checkStatus(response) {
-        if (response.ok) { // res.status >= 200 && res.status < 300
-            return response;
-        } else {
-            throw {message : response.statusText};
-        }
-    }
-  });
