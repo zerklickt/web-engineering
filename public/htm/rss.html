@@ -6,6 +6,7 @@
         <title>DHBW - RSS-Feeds</title>
         <link rel="stylesheet" href="/stylesheets/rwd.css">
         <link rel="stylesheet" href="/stylesheets/functional/popup.css">
+        <link rel="stylesheet" href="/stylesheets/functional/mobile-nav.css">
         <link rel="stylesheet" href="/stylesheets/style.css">
         <link rel="stylesheet" href="/stylesheets/custom/rss.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -22,6 +23,14 @@
                 <li class="link-sel"><a href="#">RSS-Feeds</a></li>
             </ul>
         </nav>
+        <nav class="mobile-nav">
+            <ul style="position: relative;">
+              <li class="link-sel"><a href="#"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
+              <li><a href="weather.html"><img src="/images/svg/nav_icons/cloud-weather-svgrepo-com.svg"></a></li>
+              <li><a href="sign.html"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
+              <li><a href="rss.html"><img src="/images/svg/nav_icons/feed-svgrepo-com.svg"></a></li>
+            </ul>
+          </nav>
         </header>
 
         <main>
@@ -88,6 +97,7 @@
 
             function closePopup(){
                 $('#popup').css("display", "none");
+                document.querySelector("body").style.overflow = 'auto';
             }
         </script>
 

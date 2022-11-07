@@ -1,0 +1,2 @@
+- Hide Credentials (Spotify and OpenWeatherMap)
+- Check image sources

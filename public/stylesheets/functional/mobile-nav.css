@@ -1,0 +1,18 @@
+.mobile-nav img {
+    width: 48px;
+    height: 48px;
+}
+
+.mobile-nav li {
+    padding: 0;
+    display: inline;
+}
+
+@media screen and (min-width: 601px) {
+
+    .mobile-nav {
+        flex-direction: column;
+        display: none;
+    }
+    
+}

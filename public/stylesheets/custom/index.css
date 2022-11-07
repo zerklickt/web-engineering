@@ -82,7 +82,7 @@ section > p{
     background-color: #333333;
     padding: 25px;
     border-radius: 8px;
-    flex: 0 1 460px;
+    flex: 1 1 460px;
 }
 
 h5 {
