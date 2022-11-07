@@ -60,6 +60,8 @@
             function showFeed(url){
                 document.getElementById("popup").style.display = 'flex';
                 document.querySelector("body").style.overflow = 'hidden';
+
+                clearContent();
                 
                 //parser from stackoverflow.com (question #10943544, altered and expanded)
                 $.get(url, function (data) {
@@ -93,6 +95,10 @@
                         document.getElementById('feed-body').appendChild(div);
                     });
                 });
+            }
+
+            function clearContent(){
+                $('#feed-body').html("");
             }
 
             function closePopup(){
