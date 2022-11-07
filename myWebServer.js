@@ -148,7 +148,7 @@ app.all('/api-proxy', function(req, res){
         switch(true){
           case (serviceName === "weather"):
             fullurl += "&appid=" + process.env.API_OPENWEATHER_KEY;
-            console.log("└ Service: Weather");
+            console.log("└ Service: Weather\n");
             break;
           // apply more cases when dealing with more services
           default:
