@@ -13,6 +13,7 @@ var express = require('express');        // critical module for building a Web S
 var bodyParser = require('body-parser'); // helper routines to parse data as JSON in request body
 var fetch = require('node-fetch');       // http Server requests similar to the Client Version
 var basicAuth = require('express-basic-auth'); // Some basic HTTP Header Authorization
+require('dotenv').config(); //DOTenv for including API keys
 //----------------------------------------------------------------------------
 // create a new express based Web Server
 // ---------------------------------------------------------------------------
@@ -146,7 +147,7 @@ app.all('/api-proxy', function(req, res){
         // Depending on the service that was intented to be queried, the corresponding API credentials from .env are applied
         switch(true){
           case (serviceName === "weather"):
-            fullurl += "&appid=2f5468c2cd88a4cfe1b69720aa6ce5df";
+            fullurl += "&appid=" + process.env.API_OPENWEATHER_KEY;
             console.log("└ Service: Weather");
             break;
           // apply more cases when dealing with more services
