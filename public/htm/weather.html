@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DHBW - Wetter abfragen</title>
-  <link rel="stylesheet" href="/stylesheets/sass/style.css">
-  <link rel="stylesheet" href="/stylesheets/custom/weather.css">
-  <link rel="stylesheet" href="/stylesheets/functional/popup.css">
-  <link rel="stylesheet" href="/stylesheets/functional/mobile-nav.css">
-  <link rel="stylesheet" href="/stylesheets/rwd.css">
+  <link rel="stylesheet" href="/stylesheets/sass/custom/weather.css">
 </head>
 <body>
   <header>
@@ -33,12 +29,15 @@
   </header>
 
     <main>
-    <div id="search-container">
-        <div id="row-search">
-            <input type="text" placeholder="Suche nach Stadt..." name="city-query" id="city-query">
-            <button id="search" name="search" onclick="performSearch()">Suchen</button>
-        </div>
-    </div>
+        <section>
+            <h4>Wetter-App</h4>
+            <div id="search-container">
+                <div id="row-search">
+                    <input type="text" placeholder="Suche nach Stadt..." name="city-query" id="city-query">
+                    <button id="search" name="search" onclick="performSearch()">Suchen</button>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div id="popup">

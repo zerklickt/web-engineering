@@ -1,0 +1,47 @@
+@use '../style';
+@use '../theme';
+@use '../structures/cards';
+
+#popup-container {
+    width: 90%;
+    height: 90%;
+    overflow-y: scroll;
+    background-color: theme.$page-background-hl-2;
+    border-radius: 10px;
+}
+
+#popup-header {
+    position: relative;
+    padding: 20px;
+
+    h3 {
+        font-size: 28pt;
+    }
+}
+
+#feed-body {
+    padding: 20px;
+}
+
+.feed-entry {
+    margin-top: 20px;
+    padding: 18px;
+    background-color: theme.$page-background-hl-1;
+}
+
+h6 {
+    font-size: 16pt;
+    margin: 18px 0px;
+}
+
+.feed-card {
+    @extend %card-item;
+}
+
+#feeds-container {
+    @include cards.card-container($r-gap: 20px, $c-gap: 20px);
+}
+
+.article-info {
+    flex: 0 1 460px;
+}

@@ -1,3 +1,7 @@
 - Hide Credentials (Spotify and OpenWeatherMap) - check
 - Check image sources
 - Add comments
+- further refactoring of weather.scss
+- increase link click areas in navigation and cards
+- improve error messages
+- JS error handling

@@ -4,11 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DHBW - Unterschreiben</title>
-        <link rel="stylesheet" href="/stylesheets/rwd.css">
-        <link rel="stylesheet" href="/stylesheets/functional/popup.css">
-        <link rel="stylesheet" href="/stylesheets/functional/mobile-nav.css">
-        <link rel="stylesheet" href="/stylesheets/sass/style.css">
-        <link rel="stylesheet" href="/stylesheets/custom/sign.css">
+        <link rel="stylesheet" href="/stylesheets/sass/custom/sign.css">
     </head>
     <body>
         <script>
@@ -212,11 +208,13 @@
         </header>
 
         <main>
-            <h2>Unterschreiben</h2>
-            <button onclick="showPopup()" id="show-popup" class="main-btn">Signaturfeld &ouml;ffnen</button>
-            <img id="img-out" style="width: 100%; height: auto; display: none;">
-            <button id="download-img" class="btn-confirm main-btn" onclick="exportImg()">Herunterladen</button>
-            <button class="btn-confirm main-btn" onclick="viewInBrowser()">Im Browser anzeigen</button>
+            <section>
+                <h4>Unterschreiben</h4>
+                <button onclick="showPopup()" id="show-popup" class="main-btn">Signaturfeld &ouml;ffnen</button>
+                <img id="img-out" style="width: 100%; height: auto; display: none;">
+                <button id="download-img" class="btn-confirm main-btn" onclick="exportImg()">Herunterladen</button>
+                <button class="btn-confirm main-btn" onclick="viewInBrowser()">Im Browser anzeigen</button>
+            </section>
         </main>
 
         <div id="popup">

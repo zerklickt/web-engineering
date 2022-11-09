@@ -1,8 +1,11 @@
 @use 'theme';
+@use './structures/mobile-nav';
+@use './structures/popup';
 
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: all 500ms ease;
+    box-sizing: border-box;
     color: theme.$font-primary;
 }
 
@@ -37,7 +40,7 @@ header {
         display: inline;
         float: right;
         font-size: 18pt;
-        color: white;
+        color: theme.$page-background-contrast;
         margin-bottom: 0;
         margin-right: 20px;
     }
@@ -61,13 +64,18 @@ ul {
 li {
     display: inline-block;
     background-color: theme.$page-accent;
-    padding: 15px;
+    width: 100%;
     text-align: center;
     flex: 1;
+
+    a {
+        display: block;
+        padding: 15px;
+    }
 }
 
 li:hover {
-    background-color: white;
+    background-color: theme.$page-accent-contrast;
 
     a {
         color: theme.$page-accent;
@@ -77,7 +85,7 @@ li:hover {
 a {
     text-decoration: none;
     font-weight: bolder;
-    color: white;
+    color: theme.$font-primary;
 }
 
 section {
@@ -86,7 +94,7 @@ section {
     padding-top: 30px;
     border-radius: 5px;
     background-color: theme.$page-background-hl-1;
-    color: white;
+    color: theme.$font-primary;
     margin: 25px 0;
 }
 
@@ -106,20 +114,11 @@ section > p{
     font-size: 16pt;
 }
 
-#information-container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    row-gap: 20px;
-    column-gap: 20px;
-}
-
 .article-info {
     background-color: theme.$page-background-hl-2;
     padding: 25px;
     border-radius: 8px;
-    flex: 0 1 460px;
+    flex: 1 1 460px;
 
     a {
         text-decoration: underline;
@@ -174,10 +173,8 @@ footer {
 }
 
 .link-sel {
-    display: inline-block;
+    display: block;
     background-color: #3f3f3f;
-    
-    padding: 15px;
     text-align: center;
     flex: 1;
     
@@ -185,4 +182,35 @@ footer {
         text-decoration: none;
         font-weight: bolder;
     }
+}
+
+/* scrollbar-styling code from W3Schools */
+
+::-webkit-scrollbar {
+    overflow: hidden;
+    height: 7px;
+    width: 7px;
+    border-radius: 8px;
+}
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #464646;
+    height: 7px;
+    width: 7px;
+    border-radius: 8px;
+}
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: theme.$page-accent;
+    transition: all 200ms ease;
+    height: 7px;
+    width: 7px;
+    border-radius: 8px;
+}
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme.$page-accent-contrast;
 }

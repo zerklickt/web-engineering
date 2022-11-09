@@ -1,0 +1,17 @@
+@use '../style';
+@use '../structures/cards';
+
+#projects-container {
+    @include cards.card-container($r-gap: 10px, $c-gap: 10px);
+}
+
+.project-card {
+    @extend %card-item;
+    @extend %card-item-shaded;
+    background-size: cover;
+}
+
+#information-container {
+    @include cards.card-container($r-gap: 20px, $c-gap: 20px);
+    align-items: flex-start;
+}

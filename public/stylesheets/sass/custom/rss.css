@@ -237,4 +237,82 @@ footer p {
   background: white;
 }
 
-/*# sourceMappingURL=style.css.map */
+.feed-card {
+  height: 100px;
+  flex: 0 0 220px;
+  background-color: #555555;
+  position: relative;
+  height: 220px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.feed-card:hover {
+  cursor: pointer;
+}
+
+.feed-card > a {
+  position: absolute;
+  text-align: center;
+  padding: 15px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16pt;
+}
+
+.feed-card > a:hover {
+  font-size: 22pt;
+}
+
+.feed-card > a:hover {
+  font-size: 22pt;
+}
+
+#popup-container {
+  width: 90%;
+  height: 90%;
+  overflow-y: scroll;
+  background-color: #333333;
+  border-radius: 10px;
+}
+
+#popup-header {
+  position: relative;
+  padding: 20px;
+}
+#popup-header h3 {
+  font-size: 28pt;
+}
+
+#feed-body {
+  padding: 20px;
+}
+
+.feed-entry {
+  margin-top: 20px;
+  padding: 18px;
+  background-color: #232323;
+}
+
+h6 {
+  font-size: 16pt;
+  margin: 18px 0px;
+}
+
+#feeds-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  column-gap: 20px;
+}
+
+.article-info {
+  flex: 0 1 460px;
+}
+
+/*# sourceMappingURL=rss.css.map */
