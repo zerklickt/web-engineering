@@ -1,0 +1,9 @@
+$pad-mobile-section: 15px;
+$pad-desktop-section: 70px;
+//breakpoints for responsive design
+// devices below these dimensions are considered mobile devices
+$break-mobile-width: 600px;
+$break-mobile-height: 450px;
+// devices below these dimensions, but above mobile dimensions are considered medium devices
+$break-medium-width: 900px;
+$break-medium-height: 600px;

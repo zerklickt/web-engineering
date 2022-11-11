@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aufgabe 2</title>
+  <link rel="stylesheet" href="/stylesheets/sass/custom/webex2.css">
+
+  <script src="/js/HTTPRequest.js"></script>
+</head>
+<body>
+  <header>
+    <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
+    <h3>DHBW Stuttgart - Aufgabe 2</h3>
+    <nav class="desktop-nav">
+      <ul style="position: relative;">
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/htm/weather.html">Wetter</a></li>
+        <li><a href="/htm/sign.html">Unterschreiben</a></li>
+        <li><a href="/htm/rss.html">RSS-Feeds</a></li>
+      </ul>
+    </nav>
+    <nav class="mobile-nav">
+      <ul style="position: relative;">
+        <li><a href="/"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
+        <li><a href="/htm/weather.html"><img src="/images/svg/nav_icons/cloud-weather-svgrepo-com.svg"></a></li>
+        <li><a href="/htm/sign.html"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
+        <li><a href="/htm/rss.html"><img src="/images/svg/nav_icons/feed-svgrepo-com.svg"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <main>
+      <section>
+        <h4>Aufgabe 2 - Wikipedia</h4>
+        <div style="width: 100%; position: relative;">
+          <div style="width: 100%; position: relative;">
+            <input type="text" name="search" id="search" placeholder="Suche auf Wikipedia...">
+            <button id="run" onclick="searchWiki()"><img src="/images/svg/nav_icons/magnifying-glass-svgrepo-com.svg"></button>
+          </div>
+            <div id="suggestions"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="popup">
+        <div id="wiki-container">
+            <div id="popup-header">
+                <span onclick="closePopup()" class="close-popup">X</span>
+                <h2 id="popup-headline">Ergebnisse für: </h2>
+            </div>
+            <h3 id="loader">Loading...</h3>
+            <div id="popup-body">
+                <table>
+                    <tbody id="tbody">
+                        <tr>
+                            <th>Seite</th>
+                            <th>Auszug</th>
+                            <th>Link</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+      window.onload = function(){
+        document.getElementById('search').addEventListener('input', async function(e){
+          if(e.target.value.length < 4){
+            document.getElementById('suggestions').innerHTML = "";
+            return;
+          }
+          const url = "http://localhost:6001/proxy/?https://de.wikipedia.org/w/api.php?action=query&list=search&format=json&srlimit=10&srsearch=" + e.target.value;
+          let result = await performHTTPRequest(url);
+          if(!checkResponse(result))
+              return;
+          processSuggestions(result);
+        });
+      }
+
+      async function processSuggestions(content) {
+        let json_obj = JSON.parse(content).response;
+        var sugs = document.getElementById('suggestions');
+        sugs.innerHTML = "";
+        window.debugObjects = json_obj.query.search;
+        for(var i = 0; i < json_obj.query.search.length; i++){
+          var t = document.createElement('a');
+          t.innerHTML = json_obj.query.search[i].title;
+          t.setAttribute('href', "https://de.wikipedia.org/w/index.php?curid=" + json_obj.query.search[i].pageid);
+          t.setAttribute('target', "_blank");
+          sugs.appendChild(t);
+        }
+      }
+
+        async function searchWiki(){
+            document.getElementById('popup-headline').innerHTML = "Ergebnisse für: " + document.getElementById('search').value;
+            document.getElementById('popup').style.display = "flex";
+            const url = "http://localhost:6001/proxy/?https://de.wikipedia.org/w/api.php?action=query&generator=prefixsearch&format=json&gpslimit=4&prop=extracts%7Cdescription&exintro=1&explaintext=1&exsentences=3&redirects=1&gpssearch=" + document.getElementById('search').value;
+            let result = await performHTTPRequest(url);
+            if(!checkResponse(result))
+              return;
+            loadTable(result);
+            updateUI();
+        }
+
+        async function loadTable(content){
+            let json_obj = JSON.parse(content).response;
+            var tbody = document.getElementById('tbody');
+            tbody.innerHTML = '<tr><th>Seite</th><th>Auszug</th><th>Link</th></tr>';
+            // iteration over keys from stackoverflow.com
+            for(var key in json_obj.query.pages){
+                var page = json_obj.query.pages[key];
+                var t = document.createElement('tr');
+                t.innerHTML = "<td>"+ page.title + "</td>"
+                            + "<td>"+ page.extract  + "</td>"
+                            + "<td><a target='_blank' href='https://de.wikipedia.org/w/index.php?curid=" + page.pageid + "'>Zum Artikel</td>";
+                tbody.appendChild(t);
+            }
+        }
+
+        async function checkResponse(raw_text){
+            try {
+                let json_obj = JSON.parse(raw_text);
+                if(json_obj.error != null){
+                    document.getElementById('loader').innerHTML = "Abfrage fehlgeschlagen!";
+                    return false;
+                }
+                return true;
+            } catch(e){
+                document.getElementById('loader').innerHTML = "Abfrage fehlgeschlagen!";
+                return false;
+            }
+        }
+
+        function updateUI(){
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('popup-body').style.display = 'block';
+        }
+        
+        function closePopup(){
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('loader').innerHTML = "Loading...";
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('popup-body').style.display = 'none';
+        }
+    </script>
+    <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
+</body>
+</html>

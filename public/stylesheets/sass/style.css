@@ -2,10 +2,11 @@
   width: 48px;
   height: 48px;
 }
-
 .mobile-nav li {
   padding: 0;
-  display: inline;
+}
+.mobile-nav li a {
+  padding: 0;
 }
 
 @media screen and (min-width: 601px) {
@@ -53,7 +54,6 @@ body {
   margin: 0;
   background-color: #151515;
 }
-
 body > p {
   padding: 20px;
 }
@@ -123,6 +123,17 @@ a {
   color: white;
 }
 
+.link-sel {
+  display: block;
+  background-color: #333333;
+  text-align: center;
+  flex: 1;
+}
+.link-sel a {
+  text-decoration: none;
+  font-weight: bolder;
+}
+
 section {
   width: 100%;
   padding: 70px;
@@ -131,6 +142,9 @@ section {
   background-color: #232323;
   color: white;
   margin: 25px 0;
+}
+section > p {
+  font-size: 16pt;
 }
 
 h4 {
@@ -143,10 +157,6 @@ h5 {
   text-align: center;
   font-size: 20pt;
   margin: 20px 0;
-}
-
-section > p {
-  font-size: 16pt;
 }
 
 .article-info {
@@ -177,12 +187,20 @@ footer p {
 }
 
 @media screen and (max-width: 600px) {
+  .desktop-nav {
+    display: none;
+  }
   .desktop-nav ul {
     flex-direction: column;
-    display: none;
   }
   li {
     width: 100%;
+  }
+  section {
+    padding: 15px;
+  }
+  section h4 {
+    font-size: 2rem;
   }
 }
 @media screen and (max-width: 900px) {
@@ -196,18 +214,23 @@ footer p {
     margin: 0px;
   }
 }
-.link-sel {
-  display: block;
-  background-color: #3f3f3f;
-  text-align: center;
-  flex: 1;
+@media screen and (max-height: 450px) {
+  header > img {
+    display: none;
+  }
+  header h3 {
+    display: none;
+  }
 }
-.link-sel a {
-  text-decoration: none;
-  font-weight: bolder;
+@media screen and (max-height: 600px) and (max-width: 900px) {
+  header > img {
+    display: none;
+  }
+  header h3 {
+    display: none;
+  }
 }
-
-/* scrollbar-styling code from W3Schools */
+/* scrollbar-styling code from W3Schools.com */
 ::-webkit-scrollbar {
   overflow: hidden;
   height: 7px;

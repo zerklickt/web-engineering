@@ -1,0 +1,94 @@
+@use '../style';
+@use '../theme';
+
+#search {
+    width: 100%;
+    padding: 10px;
+    padding-left: 25px;
+    font-size: 18pt;
+    border-radius: 28px;
+    border: none;
+    box-shadow: 0 0 7px black;
+    z-index: 1;
+}
+
+#search:focus {
+    box-shadow: 0 0 14px rgba(0, 255, 255, 0.7);
+    outline: none;
+
+    & + #run {
+        box-shadow: 0 0 7px aqua;
+        height: 60px;
+        width: 60px;
+    }
+}
+
+#run {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    border: none;
+    z-index: 2;
+}
+
+#run:hover {
+    cursor: pointer;
+}
+
+#wiki-container {
+    width: 900px;
+    height: 600px;
+    display: grid;
+    grid-template-rows: 70px auto;
+    grid-template-columns: auto;
+    border-radius: 8px;
+    background-color: theme.$page-background-hl-1;
+    padding: 10px;
+}
+
+table, tbody{
+    width: 100%;
+    overflow: scroll;
+    background-color: theme.$page-background-hl-2;
+}
+
+td, th {
+    padding: 8px;
+}
+
+tr:nth-child(even){
+    //background-color: #AAAAAA;
+    backdrop-filter: brightness(110%);
+}
+
+#popup-header {
+    position: relative;
+    text-align: center;
+}
+
+.close-popup {
+    color: white;
+}
+
+#popup-body {
+    overflow: auto;
+}
+
+#suggestions {
+    background-color: theme.$page-background-hl-2;
+    padding-left: 10px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: visible;
+
+    a {
+        display: block;
+        margin: 10px;
+    }
+}

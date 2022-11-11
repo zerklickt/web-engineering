@@ -178,3 +178,15 @@ function checkStatus(response) {
         }
     }
 });
+
+app.get('*', function(req, res){
+  var docname = "404.html";
+  var options = {root: __dirname + '/public/'}
+  res.sendFile(docname, options, function (err) { // send this file
+   if (err) {
+     res.send(err);
+   } else {
+     console.log('Sent:', docname);
+   }
+ });
+});

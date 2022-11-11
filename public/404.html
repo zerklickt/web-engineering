@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Seite nicht gefunden</title>
+  <link rel="stylesheet" href="/stylesheets/sass/custom/index.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+</head>
+<body>
+  <header>
+    <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
+    <h3>Seitenfehler</h3>
+    <nav class="desktop-nav">
+      <ul style="position: relative;">
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/htm/weather.html">Wetter</a></li>
+        <li><a href="/htm/sign.html">Unterschreiben</a></li>
+        <li><a href="/htm/rss.html">RSS-Feeds</a></li>
+      </ul>
+    </nav>
+    <nav class="mobile-nav">
+      <ul style="position: relative;">
+        <li class="link-sel"><a href="#"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
+        <li><a href="/htm/weather.html"><img src="/images/svg/nav_icons/cloud-weather-svgrepo-com.svg"></a></li>
+        <li><a href="/htm/sign.html"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
+        <li><a href="/htm/rss.html"><img src="/images/svg/nav_icons/feed-svgrepo-com.svg"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <main>
+      <section>
+        <h4 style="font-size: 66pt; margin: 30px auto; font-family: 'Montserrat', sans-serif;">404</h4>
+        <p style="text-align: center;">
+          Oops, da ist was schiefgelaufen :(
+        </p>
+        <a style="width: 100%; display: block; text-align: center; font-size: 16pt; text-decoration: underline;" href="/">Zurück zur Startseite</a>
+        <p id="wisdom" style="text-align: center; font-style: italic; color: lightgray; font-size: 14pt; font-family: 'Times New Roman';"></p>
+      </section>
+
+      <script>
+        window.onload = async function(){
+          var result = await fetch("https://api.adviceslip.com/advice");
+          let text_obj = await result.text();
+          document.getElementById("wisdom").innerHTML = '"' + JSON.parse(text_obj).slip.advice + '"';
+        }
+      </script>
+    </main>
+
+    <footer><p> Copyright &copy;2022 DHBW Stuttgart </p></footer>
+</body>
+</html>

@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="de-DE">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DHBW - Wetter abfragen</title>
-  <link rel="stylesheet" href="/stylesheets/sass/custom/weather.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHBW - Wetter abfragen</title>
+    <link rel="stylesheet" href="/stylesheets/sass/custom/weather.css">
+    <script src="/js/HTTPRequest.js"></script>
 </head>
 <body>
-  <header>
-    <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
-    <h3>DHBW Stuttgart - Wetter</h3>
-    <nav class="desktop-nav">
-      <ul style="position: relative;">
-        <li><a href="../">Startseite</a></li>
-        <li class="link-sel"><a href="weather.html">Wetter</a></li>
-        <li><a href="sign.html">Unterschreiben</a></li>
-        <li><a href="rss.html">RSS-Feeds</a></li>
-      </ul>
-    </nav>
-    <nav class="mobile-nav">
-        <ul style="position: relative;">
-          <li class="link-sel"><a href="#"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
-          <li><a href="weather.html"><img src="/images/svg/nav_icons/cloud-weather-svgrepo-com.svg"></a></li>
-          <li><a href="sign.html"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
-          <li><a href="rss.html"><img src="/images/svg/nav_icons/feed-svgrepo-com.svg"></a></li>
-        </ul>
-      </nav>
-  </header>
+    <header>
+        <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
+        <h3>DHBW Stuttgart - Wetter</h3>
+        <nav class="desktop-nav">
+            <ul style="position: relative;">
+                <li><a href="../">Startseite</a></li>
+                <li class="link-sel"><a href="#">Wetter</a></li>
+                <li><a href="sign.html">Unterschreiben</a></li>
+                <li><a href="rss.html">RSS-Feeds</a></li>
+            </ul>
+        </nav>
+        <nav class="mobile-nav">
+            <ul style="position: relative;">
+                <li><a href="../"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
+                <li class="link-sel"><a href="#"><img src="/images/svg/nav_icons/cloud-weather-svgrepo-com.svg"></a></li>
+                <li><a href="sign.html"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
+                <li><a href="rss.html"><img src="/images/svg/nav_icons/feed-svgrepo-com.svg"></a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
         <section>
@@ -48,7 +49,7 @@
             </div>
             <div id="popup-current-data" style="display: none;">
                 <img id="weather-icon" src="/images/svg/weather_icons/day-sunny.svg" height="120px" width="120px">
-                <div style="padding-left: 50px;">
+                <div>
                     <span id="data-temp">24°C/</span><span id="data-weather">Sonnig</span><br>
                     <p id="data-minmax-temp"><span class="span-data"><img src="/images/svg/weather_icons/day-sunny.svg" width="15px" height="15px"></span>Min. 22°C / Max. 28°C</p>
                     <p id="data-downfall"><span class="span-data"><img src="/images/svg/weather_icons/rain-drop.svg" width="15px" height="15px"></span>0%</p>
@@ -56,7 +57,7 @@
             </div>
             <h3 id="loader">Loading...</h3>
             <div id="popup-forecasts" style="display: none;">
-                <!--
+                <!-- Example item
                 <div class="forecast-item">
                     <span>11:00</span>
                     <img class="weather-icon-small" src="/images/svg/weather_icons/day-sunny.svg">
@@ -208,6 +209,7 @@
             }
         }
 
+        //finds the right weather icon to display, based on the weather code returned from the API
         function findIconURL(code, isDay){
             let path = "/images/svg/weather_icons/";
             if(isDay){
@@ -243,16 +245,6 @@
                         return path + "moon-line.svg";
                 }
             }
-        }
-
-        async function performHTTPRequest(url){
-            let response = await fetch(url);
-            if(response.status != 200) {
-                throw new Error("Server Error");
-            }
-            let plain_text = await response.text();
-
-            return plain_text;
         }
     </script>
 </body>

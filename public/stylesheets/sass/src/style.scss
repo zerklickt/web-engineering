@@ -1,4 +1,5 @@
 @use 'theme';
+@use 'dimens';
 @use './structures/mobile-nav';
 @use './structures/popup';
 
@@ -13,10 +14,10 @@ body {
     overflow: auto;
     margin: 0;
     background-color: theme.$page-background;
-}
 
-body > p {
-    padding: 20px;
+    & > p {
+        padding: 20px;
+    }
 }
 
 header {
@@ -88,14 +89,30 @@ a {
     color: theme.$font-primary;
 }
 
+.link-sel {
+    display: block;
+    background-color: theme.$page-background-hl-2;
+    text-align: center;
+    flex: 1;
+    
+    a {
+        text-decoration: none;
+        font-weight: bolder;
+    }
+}
+
 section {
     width: 100%;
-    padding: 70px;
+    padding: dimens.$pad-desktop-section;
     padding-top: 30px;
     border-radius: 5px;
     background-color: theme.$page-background-hl-1;
     color: theme.$font-primary;
     margin: 25px 0;
+
+    & > p{
+        font-size: 16pt;
+    }
 }
 
 h4 {
@@ -108,10 +125,6 @@ h5 {
     text-align: center;
     font-size: 20pt;
     margin: 20px 0;
-}
-
-section > p{
-    font-size: 16pt;
 }
 
 .article-info {
@@ -143,20 +156,37 @@ footer {
     }
 }
 
-@media screen and (max-width: 600px) {
+//responsive behaviour
 
-    .desktop-nav ul {
-        flex-direction: column;
+//***************
+//Responsive behaviour for small devices
+//hide desktop navigation bar for narrow devices with less than 600px screen width
+@media screen and (max-width: dimens.$break-mobile-width) {
+
+    .desktop-nav {
         display: none;
+
+        ul {
+            //wrap in column if for some reason mobile nav doesn't work
+            flex-direction: column;
+        }
     }
 
     li {
         width: 100%;
     }
     
+    section {
+        padding: dimens.$pad-mobile-section;
+
+        h4 {
+            font-size: 2.0rem;
+        }
+    }
 }
 
-@media screen and (max-width: 900px) {
+//hide page heading for narrow devices with less than 900px screen width
+@media screen and (max-width: dimens.$break-medium-width) {
 
     header {
         h3 {
@@ -172,19 +202,33 @@ footer {
     }
 }
 
-.link-sel {
-    display: block;
-    background-color: #3f3f3f;
-    text-align: center;
-    flex: 1;
-    
-    a {
-        text-decoration: none;
-        font-weight: bolder;
+//hide dhbw logo for devices shorter 450px, leaving only nav bar in header
+@media screen and (max-height: dimens.$break-mobile-height) {
+    header {
+        & > img {
+            display: none;
+        }        
+
+        h3 {
+            display: none;
+        }
     }
 }
 
-/* scrollbar-styling code from W3Schools */
+//hide dhbw logo for devices that are short, but still wide
+@media screen and (max-height: dimens.$break-medium-height) and (max-width: dimens.$break-medium-width) {
+    header {
+        & > img {
+            display: none;
+        }
+
+        h3 {
+            display: none;
+        }
+    }
+}
+
+/* scrollbar-styling code from W3Schools.com */
 
 ::-webkit-scrollbar {
     overflow: hidden;

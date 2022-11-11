@@ -20,6 +20,10 @@
             
             var canDownload = false;
 
+            window.addEventListener("resize", function (event){
+                context.canvas.width = document.getElementById('sign-field').offsetWidth;
+            });
+
             window.onload = function(){
                 canvas = document.getElementById('sign-field');
                 context = canvas.getContext('2d');
@@ -65,8 +69,8 @@
                 if (action == 'down') {
                     prevX = currX;
                     prevY = currY;
-                    currX = e.offsetX ;//- canvas.getBoundingClientRect().left;
-                    currY = e.offsetY ;//- canvas.getBoundingClientRect().top;
+                    currX = e.clientX - canvas.getBoundingClientRect().left;
+                    currY = e.clientY - canvas.getBoundingClientRect().top;
             
                     flag = true;
                     dot_flag = true;
@@ -136,12 +140,6 @@
             function resetCanvas() {
                 context.clearRect(0, 0, 850, 350);
                 canDownload = false;
-                /*
-                context.moveTo(50, 220);
-                context.lineTo(800, 220);
-                context.strokeStyle = "black";
-                context.stroke();
-                */
             }
 
             function showPopup(){
@@ -199,9 +197,9 @@
         </nav>
         <nav class="mobile-nav">
             <ul style="position: relative;">
-              <li class="link-sel"><a href="#"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
+              <li><a href="../"><img src="/images/svg/nav_icons/home-svgrepo-com.svg"></a></li>
               <li><a href="weather.html"><img src="/images/svg/nav_icons/cloud-weather-svgrepo-com.svg"></a></li>
-              <li><a href="sign.html"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
+              <li class="link-sel"><a href="#"><img src="/images/svg/nav_icons/signature-svgrepo-com.svg"></a></li>
               <li><a href="rss.html"><img src="/images/svg/nav_icons/feed-svgrepo-com.svg"></a></li>
             </ul>
           </nav>

@@ -76,6 +76,10 @@ h3 {
     }
 }
 
+#popup-current-data > div {
+    padding-left: 50px;
+}
+
 .span-data {
     margin-right: 15px;
 }
@@ -136,6 +140,7 @@ h3 {
     color: white;
     margin-left: 17px;
     font-weight: 600;
+    font-size: 1.0rem;
 }
 
 .p-forecast > .span-data > img {
@@ -171,4 +176,52 @@ h3 {
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(238, 238, 238);
+}
+
+@media screen and (max-width: 750px){
+    #popup-forecasts {
+        flex-direction: column;
+        overflow-y: scroll;
+        row-gap: 15px;
+    }
+
+    #weather-container {
+        height: 100%;
+    }
+
+    #weather-icon {
+        margin: auto;
+        padding: 0;
+        height: 100px;
+        width: 100px;
+    }
+
+    #data-temp {
+        font-size: 30pt;
+    }
+
+    #data-weather {
+        font-size: 17pt;
+    }
+
+    #popup-current-data {
+        //grid-template-columns: auto;
+        grid-template-columns: 35% auto;
+    }
+
+    #popup-current-data > div {
+        padding: 0;
+        margin: auto;
+    }
+
+    .forecast-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        * {
+            flex: 1;
+        }
+    }
 }
