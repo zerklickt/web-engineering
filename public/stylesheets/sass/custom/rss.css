@@ -22,7 +22,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   justify-content: center;
   align-items: center;
   display: none;
@@ -37,7 +37,6 @@
   transform: translate(0, -50%);
   color: black;
 }
-
 .close-popup:hover {
   cursor: pointer;
 }
@@ -87,6 +86,12 @@ main {
   padding: 15px;
 }
 
+a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: white;
+}
+
 ul {
   width: 100%;
   display: flex;
@@ -108,6 +113,7 @@ li {
 li a {
   display: block;
   padding: 15px;
+  color: white;
 }
 
 li:hover {
@@ -115,12 +121,6 @@ li:hover {
 }
 li:hover a {
   color: red;
-}
-
-a {
-  text-decoration: none;
-  font-weight: bolder;
-  color: white;
 }
 
 .link-sel {
@@ -230,12 +230,12 @@ footer p {
     display: none;
   }
 }
-/* scrollbar-styling code from W3Schools.com */
+/* scrollbar-styling selectors from W3Schools.com */
 ::-webkit-scrollbar {
   overflow: hidden;
   height: 7px;
   width: 7px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 /* Track */
@@ -243,7 +243,7 @@ footer p {
   background: #464646;
   height: 7px;
   width: 7px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 /* Handle */
@@ -252,7 +252,7 @@ footer p {
   transition: all 200ms ease;
   height: 7px;
   width: 7px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 /* Handle on hover */
@@ -263,7 +263,7 @@ footer p {
 .feed-card {
   height: 100px;
   flex: 0 0 220px;
-  background-color: #555555;
+  background-color: rgba(0, 0, 0, 0);
   position: relative;
   height: 220px;
   background-size: contain;
@@ -271,11 +271,9 @@ footer p {
   background-position: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-
 .feed-card:hover {
   cursor: pointer;
 }
-
 .feed-card > a {
   position: absolute;
   text-align: center;
@@ -286,11 +284,6 @@ footer p {
   transform: translate(-50%, -50%);
   font-size: 16pt;
 }
-
-.feed-card > a:hover {
-  font-size: 22pt;
-}
-
 .feed-card > a:hover {
   font-size: 22pt;
 }
@@ -298,7 +291,7 @@ footer p {
 #popup-container {
   width: 90%;
   height: 90%;
-  overflow-y: scroll;
+  overflow: hidden;
   background-color: #333333;
   border-radius: 10px;
 }
@@ -313,12 +306,15 @@ footer p {
 
 #feed-body {
   padding: 20px;
+  overflow: scroll;
+  height: 100%;
 }
 
 .feed-entry {
   margin-top: 20px;
   padding: 18px;
   background-color: #232323;
+  overflow: auto;
 }
 
 h6 {

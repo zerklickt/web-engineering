@@ -22,7 +22,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   justify-content: center;
   align-items: center;
   display: none;
@@ -37,7 +37,6 @@
   transform: translate(0, -50%);
   color: black;
 }
-
 .close-popup:hover {
   cursor: pointer;
 }
@@ -87,6 +86,12 @@ main {
   padding: 15px;
 }
 
+a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: white;
+}
+
 ul {
   width: 100%;
   display: flex;
@@ -108,6 +113,7 @@ li {
 li a {
   display: block;
   padding: 15px;
+  color: white;
 }
 
 li:hover {
@@ -115,12 +121,6 @@ li:hover {
 }
 li:hover a {
   color: red;
-}
-
-a {
-  text-decoration: none;
-  font-weight: bolder;
-  color: white;
 }
 
 .link-sel {
@@ -230,12 +230,12 @@ footer p {
     display: none;
   }
 }
-/* scrollbar-styling code from W3Schools.com */
+/* scrollbar-styling selectors from W3Schools.com */
 ::-webkit-scrollbar {
   overflow: hidden;
   height: 7px;
   width: 7px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 /* Track */
@@ -243,7 +243,7 @@ footer p {
   background: #464646;
   height: 7px;
   width: 7px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 /* Handle */
@@ -252,7 +252,7 @@ footer p {
   transition: all 200ms ease;
   height: 7px;
   width: 7px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 /* Handle on hover */

@@ -1,3 +1,5 @@
+//  This file specifies the color palette
+//======================
 $font-primary: white;
 // page color palette
 $page-background: #151515;
@@ -5,7 +7,10 @@ $page-background-hl-1: #232323;
 $page-background-hl-2: #333333;
 $page-background-contrast: white;
 // element styling
+$page-popup-background: rgba(0,0,0,0.7);
 $page-button-gray: #999999;
+$page-card-shadow: rgba(0,0,0,0.5);
+$page-card-shaded: rgba(0,0,0,0.5);
 // page accent color and color for contrast (e.g. for backgrounds)
 $page-accent: red;
 $page-accent-contrast: white;

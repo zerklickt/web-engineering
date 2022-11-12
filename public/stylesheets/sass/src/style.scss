@@ -51,6 +51,12 @@ main {
     padding: 15px;
 }
 
+a {
+    text-decoration: none;
+    font-weight: bolder;
+    color: theme.$font-primary;
+}
+
 ul {
     width: 100%;
     display: flex;
@@ -72,6 +78,7 @@ li {
     a {
         display: block;
         padding: 15px;
+        color: theme.$page-accent-contrast;
     }
 }
 
@@ -81,12 +88,6 @@ li:hover {
     a {
         color: theme.$page-accent;
     }
-}
-
-a {
-    text-decoration: none;
-    font-weight: bolder;
-    color: theme.$font-primary;
 }
 
 .link-sel {
@@ -152,7 +153,7 @@ footer {
 
     p {
         text-align: center;
-        color: white;
+        color: theme.$page-accent-contrast;
     }
 }
 
@@ -228,30 +229,30 @@ footer {
     }
 }
 
-/* scrollbar-styling code from W3Schools.com */
+/* scrollbar-styling selectors from W3Schools.com */
 
 ::-webkit-scrollbar {
     overflow: hidden;
-    height: 7px;
-    width: 7px;
-    border-radius: 8px;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
 }
   
   /* Track */
   ::-webkit-scrollbar-track {
     background: #464646;
-    height: 7px;
-    width: 7px;
-    border-radius: 8px;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
 }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: theme.$page-accent;
     transition: all 200ms ease;
-    height: 7px;
-    width: 7px;
-    border-radius: 8px;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
 }
   
   /* Handle on hover */

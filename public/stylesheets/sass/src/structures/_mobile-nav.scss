@@ -1,3 +1,6 @@
+@use 'sass:math';
+@use '../dimens';
+
 .mobile-nav {
 
     img {
@@ -15,7 +18,7 @@
 
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: dimens.$break-mobile-width + 1) {
 
     .mobile-nav {
         flex-direction: column;

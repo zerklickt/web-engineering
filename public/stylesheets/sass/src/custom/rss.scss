@@ -5,7 +5,7 @@
 #popup-container {
     width: 90%;
     height: 90%;
-    overflow-y: scroll;
+    overflow: hidden;
     background-color: theme.$page-background-hl-2;
     border-radius: 10px;
 }
@@ -21,12 +21,15 @@
 
 #feed-body {
     padding: 20px;
+    overflow: scroll;
+    height: 100%;
 }
 
 .feed-entry {
     margin-top: 20px;
     padding: 18px;
     background-color: theme.$page-background-hl-1;
+    overflow: auto;
 }
 
 h6 {

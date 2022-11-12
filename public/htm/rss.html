@@ -34,8 +34,8 @@
                 <h4>RSS-Feeds</h4>
                 <div id="feeds-container">
                   <div class="feed-card" style="background-image: url('/images/tagesschau.png');" onclick="showFeed('https://www.tagesschau.de/xml/rss2/')"></div>
-                  <div class="feed-card" style="background-image: url('/images/heise.png');" onclick="showFeed('https://www.heise.de/rss/heise.rdf')"></div>
-                  <div class="feed-card" style="background-image: url('/images/boerse_FRA.png'); background-color: white;" onclick="showFeed('https://api.boerse-frankfurt.de/v1/feeds/news.rss')"></div>
+                  <div class="feed-card" style="background-image: url('/images/heise.png'); background-color: #555555;" onclick="showFeed('https://www.heise.de/rss/heise.rdf')"></div>
+                  <div class="feed-card" style="background-image: url('/images/boerse_FRA.png'); background-color: #FFFFFF;" onclick="showFeed('https://api.boerse-frankfurt.de/v1/feeds/news.rss')"></div>
                 </div>
             </section>
         </main>
@@ -80,6 +80,23 @@
 
                         let description = document.createElement('p');
                         description.innerHTML = el.find("description").text();
+                        
+                        var media = null;
+                        $(this).find('content\\:encoded').each(function () {
+                            var test = new DOMParser().parseFromString($(this).text(), 'text/html').querySelector('img');
+                            if(test != null){
+                                media = test;
+                            }
+                        });
+                        if(media != null){
+                            var img = document.createElement('img');
+                            img.setAttribute('src', media.getAttribute('src'));
+                            img.style.width = "150";
+                            img.style.height = "auto";
+                            img.style.float = "right";
+                            div.appendChild(img);
+                        }
+                        
                         div.appendChild(description);
 
                         let link = document.createElement('a');
