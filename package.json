@@ -1,17 +1,17 @@
 {
-  "name": "DHBWPortalDemo",
+  "name": "Web-Engineering by 8522476",
   "version": "0.0.1",
-  "description": "DHBW Home Page with Node.js",
+  "description": "Node.js web server fuer das Projekt in Web-Engineering von ITA21",
   "scripts": {
-    "start": "node myWebServer"
+    "start": "node myWebServer",
+    "postinstall": "echo API_OPENWEATHER_KEY=INSERT API KEY HERE > .env"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
     "dotenv": "^16.0.3",
     "express": "^4.13.3",
     "express-basic-auth": "^1.2.0",
-    "node-fetch": "^2.6.1",
-    "spotify-web-api-js": "^1.5.2"
+    "node-fetch": "^2.6.1"
   },
   "engines": {
     "node": "^16.13.0",
