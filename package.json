@@ -1,10 +1,10 @@
 {
-  "name": "DHBWPortalDemo",
+  "name": "WE-ITA21_8522476",
   "version": "0.0.1",
-  "description": "DHBW Home Page with Node.js",
+  "description": "Abschlussprojekt Web-Engineering ITA21 Matr.-Nr. #8522476",
   "scripts": {
     "start": "node myWebServer",
-    "postinstall": "echo API_OPENWEATHER_KEY=INSERT API KEY HERE > .env"
+    "postinstall": "echo API_OPENWEATHER_KEY=INSERT API KEY HERE > .env; start README.md"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
