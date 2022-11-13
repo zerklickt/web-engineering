@@ -1,7 +1,7 @@
 {
-  "name": "Web-Engineering by 8522476",
+  "name": "DHBWPortalDemo",
   "version": "0.0.1",
-  "description": "Node.js web server fuer das Projekt in Web-Engineering von ITA21",
+  "description": "DHBW Home Page with Node.js",
   "scripts": {
     "start": "node myWebServer",
     "postinstall": "echo API_OPENWEATHER_KEY=INSERT API KEY HERE > .env"

@@ -5,8 +5,9 @@
 1. Dieses Repository klonen (alternativ die Zip aus der Mail entpacken)
 2. Eine Shell in dem soeben entpackten Verzeichnis öffnen (in jenem Ordner sollten die Dateien myWebServer.js, package.json etc. liegen)
 3. Command ausführen: ```npm install```
-4. 
-5. Die Installation ist abgeschlossen
+4. Nach der Installation sollte automatisch eine .env-Datei im Verzeichnis angelegt werden. Falls dies nicht geschehen ist, ertsllen Sie die Datei bitte manuell
+5. .env-Datei öffnen und einen gültigen API-Schlüssel für die API von OpeanWeatherMap.org hinterlegen
+6. Die Installation ist abgeschlossen
 
 ## Start
 
