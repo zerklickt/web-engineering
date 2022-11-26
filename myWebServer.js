@@ -25,17 +25,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // -----------------------------------------------------------------------------
-// This is a HTPP Basic Authentication Code fragment for potential use
-// in this example we force a http basic authentication if there is a request
-// with localhost:6001/admin
-// -----------------------------------------------------------------------------
-app.use('/admin',basicAuth( { authorizer: myAuthorizer,
-                    challenge: true} ))
-function myAuthorizer(username, password) {
-    console.log("Erstmal anmelden hier");
-    return username.startsWith('Asomething') && password.startsWith('secretstrange')
-}
-// -----------------------------------------------------------------------------
 // The Code enables CORS, just in case you want to explore this
 // option
 // -----------------------------------------------------------------------------
@@ -48,9 +37,8 @@ app.use(function(req, res, next) {
 // the WebServer now listens to http://localhost:6001 / http gets and posts
 // -----------------------------------------------------------------------------
 var server = app.listen(6001, function() {
-  console.log('***********************************');
   console.log('Started server on port:', 6001);
-  console.log('***********************************');
+  console.log('');
 });
 // -----------------------------------------------------------------------------
 // The following serve for different url paths
@@ -130,14 +118,24 @@ function checkStatus(response) {
 // localhost:6001/api-proxy?url_to_be_proxied
 // The incoming request will transfered using the fetch package
 // This proxy is intented to be used for applying credentials (such as api keys) to external API requests
+// While this proxy is based on the one that was provided already, some additions were made
 //------------------------------------------------------------------------------
 app.all('/api-proxy', function(req, res){
     var decompose = req.originalUrl.split("?");
     var fullurl = decompose[1] + "?" + decompose[2];
-    console.log("Proxy Server reached", fullurl);
+    console.log("Api Proxy reached", fullurl);
     fullurl = fullurl.replace("url=","");
-    //******* */
+    
     //altered Code
+    if(/^http[s]?:\/\/api\.openweathermap\.org\/.+/.test(fullurl)){
+      fullurl += "&appid=" + process.env.API_OPENWEATHER_KEY;
+      console.log("└ Service: Weather\n");
+    }
+
+    /*
+    // This was my first attempt, but it is quite insecure since the proxy does not check if the request is sent to the real weather api.
+    // A hacker could simply set up a request to his own server with the service parameter specified and obtain the key, which is why I discarded it.
+
     var params = decompose[2].split("&");
     for(const param of params){
       //check if service parameter is specified
@@ -157,6 +155,7 @@ app.all('/api-proxy', function(req, res){
         break;
       }
     }
+    */
 
     fetch(fullurl, {
         method: req.method,
