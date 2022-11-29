@@ -1,11 +1,8 @@
 //  This file contains most of the most important measurements for components,
 //  as well as responsive breakpoints
 //===============
-
 $pad-mobile-section: 15px;
 $pad-desktop-section: 70px;
-//individual component dimensions
-$comp-scrollbar-width_height: 7px;
 
 //breakpoints for responsive design
 // devices below these dimensions are considered mobile devices
@@ -14,3 +11,10 @@ $break-mobile-height: 450px;
 // devices below these dimensions, but above mobile dimensions are considered medium devices
 $break-medium-width: 900px;
 $break-medium-height: 600px;
+
+//================
+//individual component dimensions
+$comp-scrollbar-width_height: 7px;
+$comp-break-weather-popup: 750px;
+
+$comp-code-pad: 0px 10px;

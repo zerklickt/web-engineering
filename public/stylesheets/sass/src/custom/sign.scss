@@ -71,3 +71,15 @@ h2 {
 .btn-cancel{
     background-color: #db7f7f;
 }
+
+@media screen and (max-height: 500px){
+    
+    #sign-container {
+        height: 100%;
+    }
+
+    canvas {
+        height: 100%;
+    }
+
+}

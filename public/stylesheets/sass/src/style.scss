@@ -45,6 +45,39 @@ header {
         margin-bottom: 0;
         margin-right: 20px;
     }
+
+    ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-left: 0;
+        margin-block-start: 0;
+        margin-inline-start: 0;
+        padding-inline-start: 0;
+        margin-bottom: 0;
+    }
+    
+    li {
+        display: inline-block;
+        background-color: theme.$page-accent;
+        width: 100%;
+        text-align: center;
+        flex: 1;
+    
+        a {
+            display: block;
+            padding: 15px;
+            color: theme.$page-accent-contrast;
+        }
+    }
+    
+    li:hover {
+        background-color: theme.$page-accent-contrast;
+    
+        a {
+            color: theme.$page-accent;
+        }
+    }
 }
 
 main {
@@ -55,39 +88,6 @@ a {
     text-decoration: none;
     font-weight: bolder;
     color: theme.$font-primary;
-}
-
-ul {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-left: 0;
-    margin-block-start: 0;
-    margin-inline-start: 0;
-    padding-inline-start: 0;
-    margin-bottom: 0;
-}
-
-li {
-    display: inline-block;
-    background-color: theme.$page-accent;
-    width: 100%;
-    text-align: center;
-    flex: 1;
-
-    a {
-        display: block;
-        padding: 15px;
-        color: theme.$page-accent-contrast;
-    }
-}
-
-li:hover {
-    background-color: theme.$page-accent-contrast;
-
-    a {
-        color: theme.$page-accent;
-    }
 }
 
 .link-sel {
@@ -114,6 +114,10 @@ section {
     & > p{
         font-size: 16pt;
     }
+
+    li {
+        margin: 5px 0px;
+    }
 }
 
 h4 {
@@ -137,6 +141,13 @@ h5 {
     a {
         text-decoration: underline;
     }
+}
+
+.code {
+    padding: dimens.$comp-code-pad;
+    background-color: theme.$comp-code-background;
+    color: theme.$comp-code-foreground;
+    border-radius: 4px;
 }
 
 button, input {

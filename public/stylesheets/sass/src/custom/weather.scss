@@ -1,4 +1,5 @@
 @use '../style';
+@use '../dimens';
 
 #weather-container {
     width: 900px;
@@ -178,7 +179,7 @@ h3 {
     background: rgb(238, 238, 238);
 }
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: dimens.$comp-break-weather-popup){
     #popup-forecasts {
         flex-direction: column;
         overflow-y: scroll;

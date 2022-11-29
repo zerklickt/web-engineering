@@ -1,11 +1,14 @@
 @use '../style';
 @use '../theme';
+@use '../dimens';
 @use '../structures/cards';
 
 #popup-container {
     width: 90%;
     height: 90%;
     overflow: hidden;
+    display: grid;
+    grid-template-rows: auto auto;
     background-color: theme.$page-background-hl-2;
     border-radius: 10px;
 }
@@ -21,8 +24,15 @@
 
 #feed-body {
     padding: 20px;
-    overflow: scroll;
+    overflow: auto;
     height: 100%;
+
+    img {
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+        float: right;
+    }
 }
 
 .feed-entry {
@@ -47,4 +57,25 @@ h6 {
 
 .article-info {
     flex: 0 1 460px;
+}
+
+.close-popup {
+    top: 12%;
+}
+
+@media screen and (max-width: dimens.$break-mobile-width) {
+
+    #popup-container {
+
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+
+        #popup-header {
+
+            h3 {
+                font-size: 1.8em;
+            }
+        }
+    }
 }
