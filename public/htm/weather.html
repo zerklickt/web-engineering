@@ -96,7 +96,8 @@
             // retrieve coordinates of city in order to perform data requests
             let query_coords = await performHTTPRequest("http://localhost:6001/api-proxy/?http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather");
             window.debugURL = "http://localhost:6001/api-proxy/?http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather";
-            if(!checkResponse(query_coords))
+            let success = await checkResponse(query_coords);
+            if(!success)
                 return;
             let json_coords_obj = JSON.parse(query_coords);
             let lat = json_coords_obj[0].lat;
@@ -119,15 +120,24 @@
         async function checkResponse(raw_text){
             try {
                 let json_obj = JSON.parse(raw_text);
+                window.debugObj = json_obj;
+                if(json_obj.error != null && json_obj.error.code == "ENOTFOUND"){
+                    document.getElementById('loader').innerHTML = "Fehler bei der Abfrage!<br>Besteht eine Internetverbindung?";
+                    return false;
+                }
+                if(Array.isArray(json_obj) && json_obj.length == 0){
+                    document.getElementById('loader').innerHTML = "Fehler bei der Abfrage!<br>Die gesuchte Stadt konnte vermutlich nicht gefunden werden!";
+                    return false;
+                }
                 if(json_obj.cod != 200){
                     if(json_obj[0] != null)
                         return true;
-                    document.getElementById('loader').innerHTML = "Verbindung fehlgeschlagen!";
+                    document.getElementById('loader').innerHTML = "Fehler bei der Abfrage!";
                     return false;
                 }
                 return true;
             } catch(e){
-                document.getElementById('loader').innerHTML = "Verbindung fehlgeschlagen!";
+                document.getElementById('loader').innerHTML = "Fehler bei der Abfrage!";
                 return false;
             }
             

@@ -2,6 +2,4 @@
 - Check image sources - check
 - Add comments
 - further refactoring of weather.scss
-- increase link click areas in cards
-- improve error messages
 - JS error handling
