@@ -1,4 +1,2 @@
 - Add comments
-- replace h4 headings in sections by h4 headings
-- replace h3 headline in header by h1 heading
 - JS error handling

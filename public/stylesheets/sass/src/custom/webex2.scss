@@ -69,6 +69,10 @@ tr:nth-child(even){
 #popup-header {
     position: relative;
     text-align: center;
+
+    #popup-headline {
+        font-size: 1.5em;
+    }
 }
 
 .close-popup {
@@ -94,6 +98,13 @@ tr:nth-child(even){
     }
 }
 @media screen and (max-width: dimens.$break-mobile-width) {
+
+    #popup-header {
+        #popup-headline {
+            font-size: 1.0em;
+        }
+    }
+
     table {
         td, p {
             font-size: 0.8em;

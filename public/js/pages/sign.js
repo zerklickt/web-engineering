@@ -73,7 +73,6 @@ function process(action, e){
     }
     if (action == 'move') {
         if (flag) {
-            isCleared = false;
             prevX = currX;
             prevY = currY;
             currX = e.clientX - canvas.getBoundingClientRect().left;
@@ -85,6 +84,7 @@ function process(action, e){
 
 function processTouch(action, e){
     if (action == 'down') {
+        isCleared = false;
         prevX = currX;
         prevY = currY;
         currX = e.offsetX;
@@ -105,7 +105,6 @@ function processTouch(action, e){
     }
     if (action == 'move') {
         if (flag) {
-            isCleared = false;
             prevX = currX;
             prevY = currY;
             currX = e.touches['0'].clientX - canvas.getBoundingClientRect().left;
@@ -153,16 +152,20 @@ function cancel(){
 
 //shows image on page
 function displayImg(){
-    var dataURL = canvas.toDataURL("image/png");
-    document.getElementById('img-out').setAttribute("src", dataURL);
-    document.getElementById('img-out').style.display = 'block';
-    canDownload = true;
+    if(isCleared){
+        document.getElementById('img-out').style.display = 'none';
+    } else {
+        var dataURL = canvas.toDataURL("image/png");
+        document.getElementById('img-out').setAttribute("src", dataURL);
+        document.getElementById('img-out').style.display = 'block';
+        canDownload = true;
+    }
 }
 
 //downloads image to computer
 function exportImg(){
     //code from stackoverflow.com  (question #11112321)
-    if(!canDownload){
+    if(!canDownload || isCleared){
         alert("Es wurde keine Unterschrift erstellt!");
         return;
     }
@@ -177,7 +180,7 @@ function exportImg(){
 
 //displays signature in a new browser tab
 function viewInBrowser(){
-    if(!canDownload){
+    if(!canDownload || isCleared){
         alert("Es wurde keine Unterschrift erstellt!");
         return;
     }

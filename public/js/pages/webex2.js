@@ -6,10 +6,8 @@ window.onload = function(){
         return;
       }
       // see file /js/Proxy.js for function reference
-      const url = urlViaProxy("https://de.wikipedia.org/w/api.php?action=query&list=search&format=json&srlimit=10&srsearch=" + e.target.value);
+      const url = urlViaProxy("https://de.wikipedia.org/w/api.php?action=query&list=search&format=json&srlimit=8&srsearch=" + e.target.value);
       let result = await performHTTPRequest(url);
-      if(!checkResponse(result))
-          return;
       processSuggestions(result);
     });
   }
@@ -19,7 +17,8 @@ window.onload = function(){
     let json_obj = JSON.parse(content).response;
     var sugs = document.getElementById('suggestions');
     sugs.innerHTML = "";
-    window.debugObjects = json_obj.query.search;
+    if(json_obj.query == null)
+      return;
     for(var i = 0; i < json_obj.query.search.length; i++){
       var t = document.createElement('a');
       t.innerHTML = json_obj.query.search[i].title;
@@ -36,16 +35,17 @@ window.onload = function(){
       // see file /js/Proxy.js for function reference
       const url = urlViaProxy("https://de.wikipedia.org/w/api.php?action=query&generator=prefixsearch&format=json&gpslimit=4&prop=extracts%7Cdescription&exintro=1&explaintext=1&exsentences=3&redirects=1&gpssearch=" + document.getElementById('search').value);
       let result = await performHTTPRequest(url);
-      if(!checkResponse(result))
-        return;
       loadTable(result);
-      updateUI();
   }
 
   // display search results
   async function loadTable(content){
       let json_obj = JSON.parse(content).response;
       var tbody = document.getElementById('tbody');
+      if(json_obj.query == null){
+        tbody.innerHTML = "<td colspan='3' style='text-align: center'>Keine Ergebnisse</td>"
+        return;
+      }
       tbody.innerHTML = '<tr><th>Seite</th><th>Auszug</th><th>Link</th></tr>';
       // iteration over keys from stackoverflow.com
       for(var key in json_obj.query.pages){
@@ -57,30 +57,8 @@ window.onload = function(){
           tbody.appendChild(t);
       }
   }
-
-  // checks if request was succesful
-  async function checkResponse(raw_text){
-      try {
-          let json_obj = JSON.parse(raw_text);
-          if(json_obj.error != null){
-              document.getElementById('loader').innerHTML = "Abfrage fehlgeschlagen!";
-              return false;
-          }
-          return true;
-      } catch(e){
-          document.getElementById('loader').innerHTML = "Abfrage fehlgeschlagen!";
-          return false;
-      }
-  }
-
-  function updateUI(){
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('popup-body').style.display = 'block';
-  }
   
   function closePopup(){
       document.getElementById('popup').style.display = 'none';
-      document.getElementById('loader').innerHTML = "Loading...";
-      document.getElementById('loader').style.display = 'block';
-      document.getElementById('popup-body').style.display = 'none';
+      document.getElementById('tbody').innerHTML = '<td colspan="3">Loading...</td>';
   }
