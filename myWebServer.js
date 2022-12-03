@@ -2,6 +2,7 @@
 // All below may still contain bugs or at least typos in the comments !!
 // It should be sufficent to run our Webengineering lab Exercises, however you are
 // very much invited to change this file..
+// ~ thank you, that's what I'm about to do :)
 //------------------------------------------------------------------------------
 // This node.js application uses the express package as its implementation of a
 // web server
@@ -44,35 +45,15 @@ var server = app.listen(6001, function() {
 // The following serve for different url paths
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-// localhost:6001/static/filename.ext
-// send a static file out of public/ext/filename.ext to the client
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// as default for static files you can also use
-// localhost:6001/ext/filename.ext..
-// node will use the public folder and concatenates the url path in order to
-// find the file
-// -----------------------------------------------------------------------------
-app.get('/static/:document.:extension', function(req, res){
-   var docname = "/" + req.params.extension + "/" + req.params.document+ "." + req.params.extension ;
-   var options = {
-   root: __dirname + '/public/',
-   }
-   res.sendFile(docname, options, function (err) { // send the file !!
-    if (err) {res.send(err);}
-     else {console.log('Sent:', docname);
-    }
-  });
-});
-// -----------------------------------------------------------------------------
 // localhost:6001/redirect
-// will redirect us to the offical DHBW Homepage
+// will redirect us to the repository for this project on github
 // -----------------------------------------------------------------------------
 app.get('/redirect', function(req, res){
-   res.redirect('https://www.dhbw-stuttgart.de');
+   res.redirect('https://github.com/zerklickt/web-engineering');
 });
 // -----------------------------------------------------------------------------
 // localhost:6001/home
-//  we show the map.htm which is the Google Map at the local Stuttgart
+//  show start page
 // -----------------------------------------------------------------------------
 app.get('/home', function(req, res){
   var docname = "index.html";
@@ -80,8 +61,6 @@ app.get('/home', function(req, res){
   res.sendFile(docname, options, function (err) { // send this file
    if (err) {
      res.send(err);
-   } else {
-     console.log('Sent:', docname);
    }
  });
 });
@@ -92,7 +71,7 @@ app.get('/home', function(req, res){
 app.all('/proxy', function(req, res){
   var decompose = req.originalUrl.split("?");
   var fullurl = decompose[1] + "?" + decompose[2];
-  console.log("Proxy Server reached", fullurl);
+  //console.log("Proxy Server reached", fullurl);
   fullurl = fullurl.replace("url=","");
   fetch(fullurl, {
       method: req.method,
@@ -105,8 +84,7 @@ app.all('/proxy', function(req, res){
   .catch((err) => {
     res.send({error: err, status: err, response: ""});
   });
-// do some basic exception handling (as desribed in the package but could be more in reality)
-function checkStatus(response) {
+  function checkStatus(response) {
       if (response.ok) { // res.status >= 200 && res.status < 300
           return response;
       } else {
@@ -123,13 +101,13 @@ function checkStatus(response) {
 app.all('/api-proxy', function(req, res){
     var decompose = req.originalUrl.split("?");
     var fullurl = decompose[1] + "?" + decompose[2];
-    console.log("Api Proxy reached", fullurl);
+    //console.log("Api Proxy reached", fullurl);
     fullurl = fullurl.replace("url=","");
     
     //altered Code
     if(/^http[s]?:\/\/api\.openweathermap\.org\/.+/.test(fullurl)){
       fullurl += "&appid=" + process.env.API_OPENWEATHER_KEY;
-      console.log("└ Service: Weather\n");
+      //console.log("└ Service: Weather\n");
     }
 
     /*
@@ -168,8 +146,7 @@ app.all('/api-proxy', function(req, res){
     .catch((err) => {
       res.send({error: err, status: err, response: ""});
     });
-// do some basic exception handling (as desribed in the package but could be more in reality)
-function checkStatus(response) {
+    function checkStatus(response) {
         if (response.ok) { // res.status >= 200 && res.status < 300
             return response;
         } else {
@@ -185,7 +162,7 @@ app.get('*', function(req, res){
    if (err) {
      res.send(err);
    } else {
-     console.log('Sent:', docname);
+     console.log('Unexpected request on', req.originalUrl,', sending 404');
    }
  });
 });
