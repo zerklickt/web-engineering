@@ -1,5 +1,7 @@
 @use 'theme';
 @use 'dimens';
+
+@use './structures/scrollbar';
 @use './structures/mobile-nav';
 @use './structures/popup';
 
@@ -69,37 +71,25 @@ header {
             padding: 15px;
             color: theme.$page-accent-contrast;
         }
-    }
-    
-    li:hover {
-        background-color: theme.$page-accent-contrast;
-    
-        a {
-            color: theme.$page-accent;
+
+        &:hover {
+            background-color: theme.$page-accent-contrast;
+        
+            a {
+                color: theme.$page-accent;
+            }
         }
     }
 }
 
 main {
-    padding: 15px;
+    padding: dimens.$pad-main;
 }
 
 a {
     text-decoration: none;
     font-weight: bolder;
     color: theme.$font-primary;
-}
-
-.link-sel {
-    display: block;
-    background-color: theme.$page-background-hl-2;
-    text-align: center;
-    flex: 1;
-    
-    a {
-        text-decoration: none;
-        font-weight: bolder;
-    }
 }
 
 section {
@@ -132,26 +122,12 @@ h5 {
     margin: 20px 0;
 }
 
-.article-info {
-    background-color: theme.$page-background-hl-2;
-    padding: 25px;
-    border-radius: 8px;
-    flex: 1 1 460px;
-
-    a {
-        text-decoration: underline;
-    }
-}
-
-.code {
-    padding: dimens.$comp-code-pad;
-    background-color: theme.$comp-code-background;
-    color: theme.$comp-code-foreground;
-    border-radius: 4px;
-}
-
 button, input {
     color: black;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 footer {
@@ -168,9 +144,42 @@ footer {
     }
 }
 
+//================
+//class styling
+.link-sel {
+    display: block;
+    background-color: theme.$page-background-hl-2;
+    text-align: center;
+    flex: 1;
+    
+    a {
+        text-decoration: none;
+        font-weight: bolder;
+    }
+}
+
+.article-info {
+    background-color: theme.$page-background-hl-2;
+    padding: 25px;
+    border-radius: 8px;
+    flex: 1 1 460px;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+//spans in text that represent code fragments or file names
+.code {
+    padding: dimens.$comp-code-pad;
+    background-color: theme.$comp-code-background;
+    color: theme.$comp-code-foreground;
+    border-radius: 4px;
+}
+
+//**************
 //responsive behaviour
 
-//***************
 //Responsive behaviour for small devices
 //hide desktop navigation bar for narrow devices with less than 600px screen width
 @media screen and (max-width: dimens.$break-mobile-width) {
@@ -210,6 +219,7 @@ footer {
             box-sizing: border-box;
             padding: 2px 10px;
             margin: 0px;
+            max-height: 100px;
         }
     }
 }
@@ -238,35 +248,4 @@ footer {
             display: none;
         }
     }
-}
-
-/* scrollbar-styling selectors from W3Schools.com */
-
-::-webkit-scrollbar {
-    overflow: hidden;
-    height: dimens.$comp-scrollbar-width_height;
-    width: dimens.$comp-scrollbar-width_height;
-    border-radius: dimens.$comp-scrollbar-width_height;
-}
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #464646;
-    height: dimens.$comp-scrollbar-width_height;
-    width: dimens.$comp-scrollbar-width_height;
-    border-radius: dimens.$comp-scrollbar-width_height;
-}
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: theme.$page-accent;
-    transition: all 200ms ease;
-    height: dimens.$comp-scrollbar-width_height;
-    width: dimens.$comp-scrollbar-width_height;
-    border-radius: dimens.$comp-scrollbar-width_height;
-}
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: theme.$page-accent-contrast;
 }

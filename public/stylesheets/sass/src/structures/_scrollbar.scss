@@ -1,0 +1,33 @@
+@use '../dimens';
+@use '../theme';
+
+/* scrollbar-styling selectors from W3Schools.com */
+
+::-webkit-scrollbar {
+    overflow: hidden;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #464646;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: theme.$page-accent;
+    transition: all 200ms ease;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
+}
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: theme.$page-accent-contrast;
+}

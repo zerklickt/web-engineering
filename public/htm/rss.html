@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DHBW - RSS-Feeds</title>
+        <title>RSS-Feeds</title>
         <link rel="stylesheet" href="/stylesheets/sass/custom/rss.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
         <header>
         <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
-        <h3>DHBW Stuttgart - RSS-Feeds</h3>
+        <h3>RSS-Feeds</h3>
         <nav class="desktop-nav">
             <ul style="position: relative;">
                 <li><a href="../">Startseite</a></li>
@@ -57,6 +57,7 @@
                 document.getElementById("popup").style.display = 'flex';
                 document.querySelector("body").style.overflow = 'hidden';
 
+                //clear any previous content
                 clearContent();
                 
                 //parser from stackoverflow.com (question #10943544, altered and expanded)
@@ -74,13 +75,14 @@
                         let div = document.createElement('div');
                         div.classList.add('feed-entry');
 
+                        //parse title and description
                         let headline = document.createElement('h6');
                         headline.innerHTML = el.find("title").text();
                         div.appendChild(headline);
-
                         let description = document.createElement('p');
                         description.innerHTML = el.find("description").text();
                         
+                        //parse image, if exists
                         var media = null;
                         $(this).find('content\\:encoded').each(function () {
                             var test = new DOMParser().parseFromString($(this).text(), 'text/html').querySelector('img');
@@ -96,6 +98,7 @@
                         
                         div.appendChild(description);
 
+                        //create link to feed-page
                         let link = document.createElement('a');
                         link.setAttribute('href', el.find("link").text());
                         link.setAttribute('target', '_blank');
@@ -109,6 +112,8 @@
 
             function clearContent(){
                 $('#feed-body').html("");
+                $('#feed-name').html("Loading...");
+                $('#feed-description').html("");
             }
 
             function closePopup(){

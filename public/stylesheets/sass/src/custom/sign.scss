@@ -14,10 +14,6 @@
     box-sizing: border-box;
 }
 
-.close-popup {
-    top: 5%;
-}
-
 #toolbar {
     display: flex;
     padding: 22px 0;
@@ -70,6 +66,10 @@ h2 {
 
 .btn-cancel{
     background-color: #db7f7f;
+}
+
+.close-popup {
+    top: 5%;
 }
 
 @media screen and (max-height: 500px){

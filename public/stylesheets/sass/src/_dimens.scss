@@ -3,18 +3,20 @@
 //===============
 $pad-mobile-section: 15px;
 $pad-desktop-section: 70px;
+$pad-main: 15px;
 
 //breakpoints for responsive design
 // devices below these dimensions are considered mobile devices
 $break-mobile-width: 600px;
 $break-mobile-height: 450px;
 // devices below these dimensions, but above mobile dimensions are considered medium devices
-$break-medium-width: 900px;
+$break-medium-width: 800px;
 $break-medium-height: 600px;
 
 //================
 //individual component dimensions
 $comp-scrollbar-width_height: 7px;
+$comp-scrollbar-borderradius: 8px;
 $comp-break-weather-popup: 750px;
 
 $comp-code-pad: 0px 10px;

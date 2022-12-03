@@ -18,3 +18,4 @@
 ## Verschiedenes
 
 - Falls gewünscht, kann der Sass-Compiler mit der Datei ```start-sass.bat``` gestartet werden (ist nicht für den Betrieb erforderlich; Bat-Dateien funktionieren nur in Windows)
+- Die JavaScript-Aufgabe Nr. 2 aus der Vorlesung ist ebenfalls in diesem Projekt enthalten, allerding ist sie nicht über die normale Navigation zu erreichen (siehe #Informationen auf Startseite)

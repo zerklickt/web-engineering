@@ -13,5 +13,5 @@
 
 #information-container {
     @include cards.card-container($r-gap: 20px, $c-gap: 20px);
-    align-items: flex-start;
+    align-items: stretch;
 }

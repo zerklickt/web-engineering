@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DHBW - Startseite</title>
+  <title>Startseite</title>
   <link rel="stylesheet" href="/stylesheets/sass/custom/index.css">
 </head>
 <body>
   <header>
     <img src="/images/logodhbw.svg" alt="W3Schools.com" width="300">
-    <h3>DHBW Stuttgart - Startseite</h3>
+    <h3>Startseite</h3>
     <nav class="desktop-nav">
       <ul style="position: relative;">
         <li class="link-sel"><a href="#">Startseite</a></li>
@@ -43,19 +43,18 @@
         <h4>Allgemeine Informationen</h4>
         <div id="information-container">
           <article class="article-info">
-            <h5>Code</h5>
-            <p>
-              Sämtlicher HTML-, CSS- und JavaScript-Code, sowie Designs wurden von mir selbst entworfen, sofern nicht explizit mit einem Kommentar zu der Herkunft anders gekennzeichnet.
-            </p>
-          </article>
-          <article class="article-info">
-            <h5>Verwendete Dienste</h5>
-            <p>
-              Für das Teilprojekt Wetter wurde die OpenWeatherMap-API (<a href="https://openweathermap.org">openweathermap.org</a>) verwendet.
-            </p>
-            <p>
-              Außerdem existiert eine "spezielle" Seite, auf der die API "Advice Slip" benutzt wurde. Sie ist kinderleicht zu finden :)
-            </p>
+            <h5>Struktur des Projekts</h5>
+            <p>Das gesamte Projekt besteht aus folgenden Seiten:</p>
+              <ul>
+                <li>Startseite (<span class="code">index.html</span>)</li>
+                <li>Wetter (<span class="code">weather.html</span>)</li>
+                <li>Unterschreiben (<span class="code">sign.html</span>)</li>
+                <li>RSS-Feeds (<span class="code">rss.html</span>)</li>
+                <li>Sass (<span class="code">sass.html</span>)</li>
+                <li>Wikipedia (<span class="code">webex2.html</span>)</li>
+              </ul>
+              <p>Die letzten beiden Seiten sind nicht über das Menü im Header erreichbar. Stattdessen können diese über das Klicken auf die <a href="#Projekte">Projekte</a> aufgerufen werden. Ich habe mich dazu entschieden, da ich finde, dass diese beiden Seiten sich ein bisschen von den anderen unterscheiden und dadurch separat behandelt werden sollen</p>
+            
           </article>
           <article class="article-info">
             <h5>Bildquellen</h5>
@@ -75,10 +74,25 @@
               Der gesamte Quellcode zu diesem Projekt ist auf GitHub unter <a style="text-decoration: underline;" target="_blank" href="https://github.com/zerklickt/web-engineering">github.com/zerklickt/web-engineering</a> zu finden. Darüber hinaus wird diese Website auf <a style="text-decoration: underline;" href="https://zerklickt.4lima.de/web-engineering" target="_blank">zerklickt.4lima.de/web-engineering</a> gehostet.
             </p>
           </article>
+          <article class="article-info">
+            <h5>Code</h5>
+            <p>
+              Sämtlicher HTML-, CSS- und JavaScript-Code, sowie Designs wurden von mir selbst entworfen, sofern nicht explizit mit einem Kommentar zu der Herkunft anders gekennzeichnet.
+            </p>
+          </article>
+          <article class="article-info">
+            <h5>Verwendete Dienste</h5>
+            <p>
+              Für das Teilprojekt Wetter wurde die OpenWeatherMap-API (<a href="https://openweathermap.org">openweathermap.org</a>) verwendet.
+            </p>
+            <p>
+              Außerdem existiert eine "spezielle" Seite, auf der die API "Advice Slip" benutzt wurde. Sie ist kinderleicht zu finden :)
+            </p>
+          </article>
         </div>
       </section>
 
-      <section>
+      <section id="Projekte">
         <h4>Projekte</h4>
         <div id="projects-container">
           <div card-name="Wetter" class="project-card" style="background-image: url('/images/clouds.jpg');">
@@ -91,7 +105,7 @@
             <a href="/htm/rss.html">RSS</a>
           </div>
           <div card-name="Sass" class="project-card" style="background-image: url('/images/code.jpg');">
-            <a href="#">Sass</a>
+            <a href="/htm/sass.html">Sass</a>
           </div>
           <div card-name="Wikipedia" class="project-card" style="background-image: url('/images/Wikipedia.png'); background-size: contain;">
             <a href="/htm/webex2.html">Wikipedia</a>

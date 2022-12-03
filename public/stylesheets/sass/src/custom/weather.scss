@@ -11,10 +11,6 @@
     border-radius: 14px;
 }
 
-span {
-    color: white;
-}
-
 #row-search {
     display: flex;
     justify-content: space-between;
@@ -37,10 +33,6 @@ span {
     flex: 3;
     background-color: #320D6D;
     color: white;
-}
-
-#search:hover {
-    cursor: pointer;
 }
 
 #search-container {
@@ -153,29 +145,29 @@ h3 {
 /* width */
 ::-webkit-scrollbar {
     overflow: hidden;
-    height: 7px;
-    width: 7px;
-    border-radius: 8px;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
 }
   
   /* Track */
-  ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #464646;
-    height: 7px;
-    width: 7px;
-    border-radius: 8px;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
 }
   
   /* Handle */
-  ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgb(192, 192, 192);
-    height: 7px;
-    width: 7px;
-    border-radius: 8px;
+    height: dimens.$comp-scrollbar-width_height;
+    width: dimens.$comp-scrollbar-width_height;
+    border-radius: dimens.$comp-scrollbar-width_height;
 }
   
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: rgb(238, 238, 238);
 }
 
@@ -188,6 +180,7 @@ h3 {
 
     #weather-container {
         height: 100%;
+        border-radius: 0;
     }
 
     #weather-icon {
@@ -206,13 +199,12 @@ h3 {
     }
 
     #popup-current-data {
-        //grid-template-columns: auto;
         grid-template-columns: 35% auto;
-    }
 
-    #popup-current-data > div {
-        padding: 0;
-        margin: auto;
+        & > div {
+            padding: 0;
+            margin: auto;
+        }
     }
 
     .forecast-item {

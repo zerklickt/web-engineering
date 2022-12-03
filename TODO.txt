@@ -1,5 +1,4 @@
-- Hide Credentials (Spotify and OpenWeatherMap) - check
-- Check image sources - check
 - Add comments
-- further refactoring of weather.scss
+- replace h4 headings in sections by h4 headings
+- replace h3 headline in header by h1 heading
 - JS error handling

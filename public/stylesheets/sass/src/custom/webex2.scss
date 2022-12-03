@@ -1,5 +1,6 @@
 @use '../style';
 @use '../theme';
+@use '../dimens';
 
 #search {
     width: 100%;
@@ -90,5 +91,12 @@ tr:nth-child(even){
     a {
         display: block;
         margin: 10px;
+    }
+}
+@media screen and (max-width: dimens.$break-mobile-width) {
+    table {
+        td, p {
+            font-size: 0.8em;
+        }
     }
 }
