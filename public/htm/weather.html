@@ -6,6 +6,7 @@
     <title>Wetter abfragen</title>
     <link rel="stylesheet" href="/stylesheets/sass/custom/weather.css">
     <script src="/js/HTTPRequest.js"></script>
+    <script src="/js/Proxy.js"></script>
 </head>
 <body>
     <header>
@@ -94,8 +95,8 @@
 
         async function fetchData(city){
             // retrieve coordinates of city in order to perform data requests
-            let query_coords = await performHTTPRequest("http://localhost:6001/api-proxy/?http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather");
-            window.debugURL = "http://localhost:6001/api-proxy/?http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather";
+            let query_coords = await performHTTPRequest(urlViaApiProxy("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather"));
+            //window.debugURL = "http://localhost:6001/api-proxy/?http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&service=weather";
             let success = await checkResponse(query_coords);
             if(!success)
                 return;
@@ -104,13 +105,13 @@
             let lon = json_coords_obj[0].lon;
 
             // query current weather
-            let weather_result = await performHTTPRequest("http://localhost:6001/api-proxy/?https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&service=weather&lat=" + lat + "&lon=" + lon);
+            let weather_result = await performHTTPRequest(urlViaApiProxy("https://api.openweathermap.org/data/2.5/weather?lang=de&units=metric&lat=" + lat + "&lon=" + lon));
             if(!checkResponse(weather_result))
                 return;
             await displayCurrentWeather(weather_result);
             
             // query forecast for next five days
-            let forecast_result = await performHTTPRequest("http://localhost:6001/api-proxy/?https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&service=weather&lat=" + lat + "&lon=" + lon);
+            let forecast_result = await performHTTPRequest(urlViaApiProxy("https://api.openweathermap.org/data/2.5/forecast?lang=de&units=metric&lat=" + lat + "&lon=" + lon));
             if(!checkResponse(forecast_result))
                 return;
             await displayForecast(forecast_result);
