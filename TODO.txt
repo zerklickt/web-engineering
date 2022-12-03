@@ -1,2 +1,0 @@
-- Add comments
-- JS error handling
